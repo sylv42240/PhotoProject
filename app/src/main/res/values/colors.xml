@@ -3,4 +3,7 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="snack_bar_color">#DF3F14</color>
+    <color name="color_background">#e4e9ef</color>
+    <color name="colorAccentDark">#006658</color>
 </resources>
