@@ -1,9 +1,12 @@
-package fr.peaky.photographieproject
+package fr.peaky.photographieproject.data.extension
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 
 @Suppress("DEPRECATION")
 fun isOnline(context: Context): Boolean {
@@ -31,4 +34,10 @@ fun isOnline(context: Context): Boolean {
         }
     }
     return result > 0
+}
+
+fun <T> LiveData<T>.observeSafe(owner: LifecycleOwner, observer: (T) -> Unit) {
+    this.observe(owner, Observer<T> { t ->
+        t?.let(observer)
+    })
 }
