@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "591647915207",
+    "firebase_url": "https://photographieproject-6c8c8.firebaseio.com",
+    "project_id": "photographieproject-6c8c8",
+    "storage_bucket": "photographieproject-6c8c8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:591647915207:android:f1df1115ffce844dd312e2",
+        "android_client_info": {
+          "package_name": "fr.peaky.photographieproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "591647915207-th192v5b008ca753ar10b8etlc0ban0n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.peaky.photographieproject",
+            "certificate_hash": "cd03c77ce8a61789d651c0946577a37563f35620"
+          }
+        },
+        {
+          "client_id": "591647915207-5q9ukfagrvh94ul9tboofijbk66l4jnm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfg0MaIkGPMUwnLid7Nfq1sve3RHqpJI0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "591647915207-5q9ukfagrvh94ul9tboofijbk66l4jnm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
