@@ -1,17 +1,13 @@
 package fr.peaky.photographieproject.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import fr.peaky.photographieproject.R
-import fr.peaky.photographieproject.ui.component.ErrorDisplayComponent
-import fr.peaky.photographieproject.ui.component.ErrorTranslator
-import com.google.firebase.firestore.QuerySnapshot
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import fr.peaky.photographieproject.R
 import fr.peaky.photographieproject.data.PELLICULE_VALUE
 import fr.peaky.photographieproject.data.USER_PARAMETER
 import fr.peaky.photographieproject.data.exception.FirestoreException
@@ -20,7 +16,10 @@ import fr.peaky.photographieproject.data.extension.hide
 import fr.peaky.photographieproject.data.extension.isOnline
 import fr.peaky.photographieproject.data.extension.show
 import fr.peaky.photographieproject.data.model.Pellicule
+import fr.peaky.photographieproject.ui.adapter.CustomScrollListener
 import fr.peaky.photographieproject.ui.adapter.PelliculeAdapter
+import fr.peaky.photographieproject.ui.component.ErrorDisplayComponent
+import fr.peaky.photographieproject.ui.component.ErrorTranslator
 import kotlinx.android.synthetic.main.activity_pellicule_list.*
 
 
@@ -74,8 +73,22 @@ class PelliculeListActivity : AppCompatActivity() {
     private fun updateRecyclerView(pelliculeList: MutableList<Pellicule>) {
         adapter.updatePelliculeList(pelliculeList)
         pellicule_recycler_view.adapter = adapter
+        pellicule_recycler_view.addOnScrollListener(CustomScrollListener(this))
         pellicule_recycler_view.layoutManager = LinearLayoutManager(this)
         empty_pellicule_layout.hide()
         pellicule_list_progress_bar.hide()
+    }
+
+    fun notifyMovingScroll(responseCode: Int){
+        when (responseCode) {
+            1 -> {
+                myBottomAppBar.performHide()
+                researchFabMenuBar.hide()
+            }
+            2 -> {
+                myBottomAppBar.performShow()
+                researchFabMenuBar.show()
+            }
+        }
     }
 }

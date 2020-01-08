@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import fr.peaky.photographieproject.R
 import fr.peaky.photographieproject.data.model.Pellicule
 import fr.peaky.photographieproject.ui.activity.PelliculeDetailActivity
-import fr.peaky.photographieproject.ui.activity.PelliculeListActivity
 import fr.peaky.photographieproject.ui.component.inflate
 import kotlinx.android.synthetic.main.pellicule_item_holder.view.*
 
-class PelliculeAdapter : RecyclerView.Adapter<PelliculeViewHolder>() {
+
+class GroupSequenceAdapter : RecyclerView.Adapter<GroupeSequenceViewHolder>() {
 
     var pellicules = emptyList<Pellicule>()
 
@@ -19,13 +19,13 @@ class PelliculeAdapter : RecyclerView.Adapter<PelliculeViewHolder>() {
         return pellicules.size
     }
 
-    override fun onBindViewHolder(holder: PelliculeViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: GroupeSequenceViewHolder, position: Int) {
         holder.bindPellicule(pellicules[position])
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PelliculeViewHolder {
-        val inflatedView: View = parent.inflate(R.layout.pellicule_item_holder, false)
-        return PelliculeViewHolder(inflatedView)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupeSequenceViewHolder {
+        val inflatedView: View = parent.inflate(R.layout.groupe_sequence_item_holder, false)
+        return GroupeSequenceViewHolder(inflatedView)
     }
 
     fun updatePelliculeList(pellicules: List<Pellicule>) {
@@ -35,7 +35,7 @@ class PelliculeAdapter : RecyclerView.Adapter<PelliculeViewHolder>() {
 
 }
 
-class PelliculeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class GroupeSequenceViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val rootView = view
     private var pellicule: Pellicule? = null
@@ -52,27 +52,10 @@ class PelliculeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         this.pellicule = pellicule
         rootView.pelliculeName.text = pellicule.name
         rootView.isoLabel.text = pellicule.iso
+        rootView.countNumberGroupeSequence.text = pellicule.groupeSequenceCount.toString()
     }
 
     companion object {
         const val PELLICULE_EXTRA_KEY = "pellicule_extra_key"
     }
 }
-
-class CustomScrollListener(pelliculeListActivity: PelliculeListActivity) :
-    RecyclerView.OnScrollListener() {
-
-    private val pelliculeListActivity = pelliculeListActivity
-
-    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-    }
-
-    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-        when {
-            dy > 0 -> pelliculeListActivity.notifyMovingScroll(1)
-            dy < 0 -> pelliculeListActivity.notifyMovingScroll(2)
-            else -> pelliculeListActivity.notifyMovingScroll(0)
-        }
-    }
-}
-
