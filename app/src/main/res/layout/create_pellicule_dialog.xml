@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:text="Créer une pellicule"
+        android:text="@string/add_pellicule_title"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,34 +21,21 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/etEmail"
+        android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Nom de la pellicule"
+        android:hint="@string/add_pellicule_name"
         android:inputType="textEmailAddress"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <TextView
-        android:id="@+id/textview2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="22dp"
-        app:layout_constraintStart_toStartOf="@+id/etPassword"
-        app:layout_constraintTop_toBottomOf="@+id/etEmail"
-        tools:text="ISO 4000" />
-
-    <SeekBar
-        android:id="@+id/etPassword"
+    <Spinner
+        android:id="@+id/iso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin8"
-        android:indeterminate="false"
-        android:max="100"
-        android:progress="15"
-        android:progressTint="@color/textColor"
-        android:thumbTint="@color/textColor"
-        app:layout_constraintTop_toBottomOf="@+id/etEmail" />
+        tools:text="ISO"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
 
     <Button
@@ -58,11 +45,11 @@
         android:layout_marginTop="@dimen/margin8"
         android:layout_marginEnd="@dimen/margin8"
         android:background="@color/colorAccent"
-        android:text="Créer"
+        android:text="@string/annuler"
         android:textColor="@color/textColor"
         app:layout_constraintEnd_toStartOf="@id/btnLogin2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/iso" />
 
     <Button
         android:id="@+id/btnLogin2"
@@ -70,9 +57,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin8"
         android:background="@color/colorAccent"
-        android:text="Annuler"
+        android:text="@string/creer"
         android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnLogin"
-        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/iso" />
 </androidx.constraintlayout.widget.ConstraintLayout>

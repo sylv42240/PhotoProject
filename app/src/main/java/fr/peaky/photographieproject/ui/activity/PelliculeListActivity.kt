@@ -2,7 +2,10 @@ package fr.peaky.photographieproject.ui.activity
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
@@ -91,4 +94,20 @@ class PelliculeListActivity : AppCompatActivity() {
             }
         }
     }
+
+
+
+    /*
+     TODO YKR
+    fun showDialog(view: View){
+        val spinner = Spinner(this)
+        val userNames = arrayOf("50", "100", "200", "400", "800", "1 600", "12 800", "25 600")
+        val arrayadapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, userNames)
+        spinner.adapter = arrayadapter
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setView(spinner)
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+    }*/
+
 }
