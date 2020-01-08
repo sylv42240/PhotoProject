@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">PhotographieProject</string>
+    <string name="exception_network">Vérifier votre connexion internet</string>
+    <string name="exception_firestore">Impossible de récupérer les informations de la base de données</string>
+    <string name="exception_user">Utilisateur introuvable</string>
+    <string name="exception_default">Une erreur est survenue</string>
     <string name="iso">ISO :</string>
     <string name="labelCountGroupSequence">Nombre de groupe de séquences :</string>
     <string name="pelliculeName">Nom de la pellicule</string>
