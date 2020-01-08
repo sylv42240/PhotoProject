@@ -8,4 +8,5 @@
     <color name="colorAccentDark">#468FB3</color>
     <color name="errorColor">#B00020</color>
     <color name="textColor">#010101</color>
+    <color name="empty_list">#52000000</color>
 </resources>

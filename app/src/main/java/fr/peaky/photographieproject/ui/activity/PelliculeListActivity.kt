@@ -18,6 +18,7 @@ import fr.peaky.photographieproject.data.exception.FirestoreException
 import fr.peaky.photographieproject.data.exception.NetworkException
 import fr.peaky.photographieproject.data.extension.hide
 import fr.peaky.photographieproject.data.extension.isOnline
+import fr.peaky.photographieproject.data.extension.show
 import fr.peaky.photographieproject.data.model.Pellicule
 import fr.peaky.photographieproject.ui.adapter.PelliculeAdapter
 import kotlinx.android.synthetic.main.activity_pellicule_list.*
@@ -67,13 +68,14 @@ class PelliculeListActivity : AppCompatActivity() {
 
     private fun updateBackground() {
         pellicule_list_progress_bar.hide()
-        Toast.makeText(this, "PAS DE PEL", Toast.LENGTH_SHORT).show()
+        empty_pellicule_layout.show()
     }
 
     private fun updateRecyclerView(pelliculeList: MutableList<Pellicule>) {
         adapter.updatePelliculeList(pelliculeList)
         pellicule_recycler_view.adapter = adapter
         pellicule_recycler_view.layoutManager = LinearLayoutManager(this)
+        empty_pellicule_layout.hide()
         pellicule_list_progress_bar.hide()
     }
 }
