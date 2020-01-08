@@ -11,4 +11,7 @@
     <dimen name="margin20">20dp</dimen>
     <dimen name="marginTopMinElement">16dp</dimen>
     <dimen name="marginBottomMinElement">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="elevationCardView">6dp</dimen>
+    <dimen name="radiusCornerCardview">12dp</dimen>
 </resources>
