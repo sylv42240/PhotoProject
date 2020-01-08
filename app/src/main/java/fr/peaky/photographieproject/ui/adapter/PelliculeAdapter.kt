@@ -51,7 +51,6 @@ class PelliculeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         this.pellicule = pellicule
         rootView.pelliculeName.text = pellicule.name
         rootView.isoLabel.text = pellicule.iso
-        rootView.countNumberGroupeSequence.text = pellicule.groupeSequenceCount.toString()
     }
 
     companion object {
