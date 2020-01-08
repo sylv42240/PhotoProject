@@ -43,7 +43,7 @@
             android:elevation="@dimen/margin16"
             android:layout_gravity="center"
             android:padding="@dimen/padding16"
-            android:text="Créer une nouvelle Pellicule"
+            android:text="@string/newPelliculeLabel"
             android:textAlignment="center" />
 
 

@@ -7,4 +7,5 @@
     <string name="iso">ISO :</string>
     <string name="labelCountGroupSequence">Nombre de groupe de séquences :</string>
     <string name="pelliculeName">Nom de la pellicule</string>
+    <string name="newPelliculeLabel">Créer une nouvelle Pellicule</string>
 </resources>
