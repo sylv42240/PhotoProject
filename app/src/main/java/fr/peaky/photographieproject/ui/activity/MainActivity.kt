@@ -11,6 +11,5 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        user_tv.text = "Bienvenue " + FirebaseAuth.getInstance().currentUser?.displayName
     }
 }

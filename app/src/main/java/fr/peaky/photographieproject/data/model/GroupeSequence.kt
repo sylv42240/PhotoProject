@@ -1,7 +1,8 @@
 package fr.peaky.photographieproject.data.model
 
-data class Device(
+data class GroupeSequence(
     var id: String = "",
-    val userId: String = "",
+    val pelliculeId: String = "",
+    val appareilId: String = "",
     val name: String = ""
 )

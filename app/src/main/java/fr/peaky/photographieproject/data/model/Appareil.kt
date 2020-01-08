@@ -1,8 +1,7 @@
 package fr.peaky.photographieproject.data.model
 
-data class Pellicule (
+data class Appareil(
     var id: String = "",
     val userId: String = "",
-    val name: String = "",
-    val iso: String = ""
+    val name: String = ""
 )
