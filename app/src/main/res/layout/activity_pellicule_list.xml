@@ -14,8 +14,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
+        <ProgressBar
+            android:id="@+id/pellicule_list_progress_bar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:indeterminateTint="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerviewPellicule"
+            android:id="@+id/pellicule_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/padding16">
@@ -34,6 +45,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
+
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/researchFabMenuBar"

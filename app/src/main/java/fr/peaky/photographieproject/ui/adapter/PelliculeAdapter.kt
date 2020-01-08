@@ -3,12 +3,10 @@ package fr.peaky.photographieproject.ui.adapter
 import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import fr.peaky.photographieproject.R
 import fr.peaky.photographieproject.data.model.Pellicule
 import fr.peaky.photographieproject.ui.activity.PelliculeDetailActivity
-import fr.peaky.photographieproject.ui.activity.PelliculeListActivity
 import fr.peaky.photographieproject.ui.component.inflate
 import kotlinx.android.synthetic.main.pellicule_item_holder.view.*
 
