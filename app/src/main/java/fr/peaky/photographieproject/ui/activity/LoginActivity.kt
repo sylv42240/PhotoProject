@@ -1,4 +1,4 @@
-package fr.peaky.photographieproject
+package fr.peaky.photographieproject.ui.activity
 
 import android.app.Activity
 import android.content.Intent
@@ -13,6 +13,16 @@ import com.firebase.ui.auth.AuthUI
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.FirebaseDatabase
+import fr.peaky.photographieproject.*
+import fr.peaky.photographieproject.ui.component.ErrorDisplayComponent
+import fr.peaky.photographieproject.ui.component.ErrorTranslator
+import fr.peaky.photographieproject.data.exception.UserNotFoundException
+import fr.peaky.photographieproject.data.extension.isOnline
+import fr.peaky.photographieproject.data.extension.observeSafe
+import fr.peaky.photographieproject.data.manager.profile.ProfileManagerImpl
+import fr.peaky.photographieproject.data.repository.ProfileRepository
+import fr.peaky.photographieproject.ui.viewmodel.LoginViewModel
 
 const val REQUEST_CODE = 4500
 
@@ -20,9 +30,16 @@ const val REQUEST_CODE = 4500
 class LoginActivity : AppCompatActivity() {
 
     private var providers = emptyList<AuthUI.IdpConfig>()
-    private val loginViewModel: LoginViewModel by viewModel()
-    private val errorDisplayComponent: ErrorDisplayComponent by inject()
-    private val auth: FirebaseAuth  = FirebaseAuth.getInstance()
+    private val loginViewModel: LoginViewModel =
+        LoginViewModel(
+            ProfileRepository(
+                ProfileManagerImpl(
+                    FirebaseDatabase.getInstance()
+                ), this
+            )
+        )
+    private val errorDisplayComponent = ErrorDisplayComponent(ErrorTranslator(this))
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +56,10 @@ class LoginActivity : AppCompatActivity() {
             if (auth.currentUser != null) {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+                overridePendingTransition(
+                    R.anim.fadein,
+                    R.anim.fadeout
+                )
                 this.finish()
             } else {
                 providers = listOf(
@@ -64,11 +84,20 @@ class LoginActivity : AppCompatActivity() {
                 actionView
             )
         }
-        errorSnackBar.view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.snack_bar_color))
+        errorSnackBar.view.setBackgroundColor(
+            ContextCompat.getColor(
+                view.context,
+                R.color.snack_bar_color
+            )
+        )
         errorSnackBar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
-            .setTextColor(ContextCompat.getColor(view.context, R.color.color_background))
+            .setTextColor(ContextCompat.getColor(view.context,
+                R.color.color_background
+            ))
         errorSnackBar.view.findViewById<Button>(com.google.android.material.R.id.snackbar_action)
-            .setTextColor(ContextCompat.getColor(view.context, R.color.color_background))
+            .setTextColor(ContextCompat.getColor(view.context,
+                R.color.color_background
+            ))
         errorSnackBar.show()
     }
 
@@ -109,7 +138,10 @@ class LoginActivity : AppCompatActivity() {
             loginViewModel.loginLiveData.observeSafe(this) {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+                overridePendingTransition(
+                    R.anim.fadein,
+                    R.anim.fadeout
+                )
                 activity.finish()
             }
             loginViewModel.errorLiveData.observeSafe(this) {
