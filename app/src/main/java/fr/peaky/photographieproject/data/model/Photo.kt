@@ -1,5 +1,7 @@
 package fr.peaky.photographieproject.data.model
 
+import java.io.Serializable
+
 data class Photo(
     var id: String = "",
     val sequenceId: String,
@@ -10,4 +12,4 @@ data class Photo(
     val description: String = "",
     val imagePath: String = "",
     val numberPhoto: String = "" //  Numero pellicule
-)
+): Serializable

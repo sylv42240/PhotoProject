@@ -54,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
     private fun initConnection(view: View) {
         if (isOnline(this)) {
             if (auth.currentUser != null) {
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, PelliculeListActivity::class.java)
                 startActivity(intent)
                 overridePendingTransition(
                     R.anim.fadein,
@@ -136,7 +136,7 @@ class LoginActivity : AppCompatActivity() {
         if (user != null) {
             loginViewModel.initUserInfo(user)
             loginViewModel.loginLiveData.observeSafe(this) {
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, PelliculeListActivity::class.java)
                 startActivity(intent)
                 overridePendingTransition(
                     R.anim.fadein,
