@@ -7,6 +7,8 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import fr.peaky.photographieproject.R
 import fr.peaky.photographieproject.data.model.Pellicule
+import fr.peaky.photographieproject.ui.activity.PelliculeDetailActivity
+import fr.peaky.photographieproject.ui.activity.PelliculeListActivity
 import fr.peaky.photographieproject.ui.component.inflate
 import kotlinx.android.synthetic.main.pellicule_item_holder.view.*
 
@@ -36,22 +38,22 @@ class PelliculeAdapter : RecyclerView.Adapter<PelliculeViewHolder>() {
 
 class PelliculeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    private val rootview = view
+    private val rootView = view
     private var pellicule: Pellicule? = null
 
     init {
-        rootview.setOnClickListener {
-            val intent = Intent(PelliculeListActivity, PelliculeDetailActivity.class. java)
+        rootView.setOnClickListener {
+            val intent = Intent(it.context, PelliculeDetailActivity::class.java)
             intent.putExtra(PELLICULE_EXTRA_KEY, pellicule)
-            startActivity(intent)
+            it.context.startActivity(intent)
         }
     }
 
     fun bindPellicule(pellicule: Pellicule) {
         this.pellicule = pellicule
-        rootview.pelliculeName.text = pellicule.name
-        rootview.isoLabel.text = pellicule.iso
-        rootview.countNumberGroupeSequence.text = pellicule.groupeSequenceCount
+        rootView.pelliculeName.text = pellicule.name
+        rootView.isoLabel.text = pellicule.iso
+        rootView.countNumberGroupeSequence.text = pellicule.groupeSequenceCount.toString()
     }
 
     companion object {
