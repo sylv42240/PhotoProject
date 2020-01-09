@@ -50,9 +50,8 @@ class GroupeSequenceViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun bindPellicule(pellicule: Pellicule) {
         this.pellicule = pellicule
-        rootView.pelliculeName.text = pellicule.name
-        rootView.isoLabel.text = pellicule.iso
-        rootView.countNumberGroupeSequence.text = pellicule.groupeSequenceCount.toString()
+        rootView.pellicule_name.text = pellicule.name
+        rootView.iso_label.text = pellicule.iso
     }
 
     companion object {
