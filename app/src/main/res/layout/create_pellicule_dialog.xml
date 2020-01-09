@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/name"
+        android:id="@+id/pellicule_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -29,17 +29,30 @@
         android:inputType="textEmailAddress"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <Spinner
-        android:id="@+id/iso"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin8"
-        tools:text="ISO"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
+        android:text="ISO : "
+        android:textSize="@dimen/textTitle"
+        app:layout_constraintStart_toStartOf="@+id/pellicule_name"
+        app:layout_constraintTop_toBottomOf="@+id/pellicule_name" />
+
+    <Spinner
+        android:id="@+id/pellicule_iso_spinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin8"
+        app:layout_constraintBottom_toBottomOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/pellicule_name"
+        tools:text="ISO" />
 
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btn_cancel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin8"
@@ -47,12 +60,12 @@
         android:background="@color/colorAccent"
         android:text="@string/annuler"
         android:textColor="@color/textColor"
-        app:layout_constraintEnd_toStartOf="@id/btnLogin2"
+        app:layout_constraintEnd_toStartOf="@id/btn_validate"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iso" />
+        app:layout_constraintTop_toBottomOf="@+id/pellicule_iso_spinner" />
 
     <Button
-        android:id="@+id/btnLogin2"
+        android:id="@+id/btn_validate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin8"
@@ -60,6 +73,6 @@
         android:text="@string/creer"
         android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnLogin"
-        app:layout_constraintTop_toBottomOf="@+id/iso" />
+        app:layout_constraintStart_toEndOf="@id/btn_cancel"
+        app:layout_constraintTop_toBottomOf="@+id/pellicule_iso_spinner" />
 </androidx.constraintlayout.widget.ConstraintLayout>
