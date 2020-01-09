@@ -1,62 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="@dimen/padding16">
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="@dimen/margin8"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="16dp"
+    card_view:cardCornerRadius="3dp"
+    card_view:cardElevation="3dp"
+    card_view:cardMaxElevation="3dp"
+    card_view:contentPadding="3dp"
+    tools:ignore="SpUsage">
 
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:elevation="@dimen/padding16"
-        app:cardCornerRadius="@dimen/radiusCornerCardview">
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="true"
-            android:padding="@dimen/padding16">
 
-            <TextView
-                android:id="@+id/pelliculeName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/pelliculeName"
-                android:textAllCaps="true"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/textTitle"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/pellicule_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin8"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/textTitle"
+            android:textStyle="bold"
+            card_view:layout_constraintBottom_toTopOf="@id/iso_label"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/pelliculeName" />
 
-            <TextView
-                android:id="@+id/isoLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/iso"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/headerText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+        <TextView
+            android:id="@+id/iso_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin8"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/headerText"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@id/pellicule_name"
+            tools:text="@string/iso" />
 
-                app:layout_constraintTop_toBottomOf="@+id/pelliculeName" />
 
-            <TextView
-                android:id="@+id/countNumberGroupeSequence"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/labelCountGroupSequence"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/contentText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                app:layout_constraintTop_toBottomOf="@+id/isoLabel" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-
+</androidx.cardview.widget.CardView>
