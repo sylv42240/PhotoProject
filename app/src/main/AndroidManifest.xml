@@ -15,8 +15,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".ui.activity.PelliculeDetailActivity"/>
-        <activity android:name=".ui.activity.PelliculeListActivity"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>
+        <activity android:name=".ui.activity.PelliculeListActivity"/>
         <activity
             android:name=".ui.activity.LoginActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">

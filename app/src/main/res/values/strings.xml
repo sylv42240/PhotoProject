@@ -8,6 +8,7 @@
     <string name="labelCountGroupSequence">Nombre de groupe de séquences :</string>
     <string name="pelliculeName">Nom de la pellicule</string>
     <string name="newPelliculeLabel">Créer une nouvelle Pellicule</string>
+    <string name="nameGroupeSequence">Nom du Groupe de Séquences</string>
     <string name="aucune_pellicule">Aucune pellicule trouvée</string>
     <string name="aucun_grp_sequence">Aucun groupe séquence trouvé</string>
     <string name="annuler">Annuler</string>
