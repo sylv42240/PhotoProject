@@ -15,4 +15,5 @@
     <dimen name="elevationCardView">6dp</dimen>
     <dimen name="radiusCornerCardview">12dp</dimen>
     <dimen name="elevationFab">4dp</dimen>
+    <dimen name="fabMarginBottom">35dp</dimen>
 </resources>

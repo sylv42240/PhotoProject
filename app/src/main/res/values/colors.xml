@@ -2,10 +2,11 @@
 <resources>
     <color name="colorPrimary">#FFD096</color>
     <color name="colorPrimaryDark">#B38A57</color>
-    <color name="colorAccent">#96DDFF</color>
+    <color name="colorAccent">#5795B3</color>
+    <color name="colorAccentBis">#D6FCFF</color>
     <color name="snack_bar_color">#EB7416</color>
     <color name="color_background">#E4E9EF</color>
-    <color name="colorAccentDark">#468FB3</color>
+    <color name="colorAccentDark">#1E4E66</color>
     <color name="errorColor">#B00020</color>
-    <color name="textColor">#010101</color>
+    <color name="textColor">#FFFFFF</color>
 </resources>
