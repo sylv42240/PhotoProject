@@ -9,11 +9,11 @@ import fr.peaky.photographieproject.data.model.GroupeSequence
 import fr.peaky.photographieproject.ui.activity.PelliculeDetailActivity
 import fr.peaky.photographieproject.ui.component.inflate
 import kotlinx.android.synthetic.main.groupe_sequence_item_holder.view.*
-import kotlinx.android.synthetic.main.pellicule_item_holder.view.*
 
 
 class GroupSequenceAdapter : RecyclerView.Adapter<GroupeSequenceViewHolder>() {
 
+    lateinit var listener: (GroupeSequence) -> Unit
     private var groupeSequences = emptyList<GroupeSequence>()
 
     override fun getItemCount(): Int {
@@ -26,7 +26,7 @@ class GroupSequenceAdapter : RecyclerView.Adapter<GroupeSequenceViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupeSequenceViewHolder {
         val inflatedView: View = parent.inflate(R.layout.groupe_sequence_item_holder, false)
-        return GroupeSequenceViewHolder(inflatedView)
+        return GroupeSequenceViewHolder(inflatedView, listener)
     }
 
     fun updatePelliculeList(pellicules: List<GroupeSequence>) {
@@ -36,7 +36,7 @@ class GroupSequenceAdapter : RecyclerView.Adapter<GroupeSequenceViewHolder>() {
 
 }
 
-class GroupeSequenceViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class GroupeSequenceViewHolder(view: View, listener: (GroupeSequence) -> Unit) : RecyclerView.ViewHolder(view) {
 
     private val rootView = view
     private var groupeSequence: GroupeSequence? = null
@@ -48,12 +48,9 @@ class GroupeSequenceViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             it.context.startActivity(intent)
         }
         rootView.setOnLongClickListener{
-            deleteGroupeSequenceFireStore(groupeSequence?.id)
+            groupeSequence?.let { it1 -> listener(it1) }
+            return@setOnLongClickListener true
         }
-    }
-
-    private fun deleteGroupeSequenceFireStore(id: String?): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     fun bindPellicule(groupeSequence: GroupeSequence) {
@@ -63,5 +60,22 @@ class GroupeSequenceViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     companion object {
         const val PELLICULE_EXTRA_KEY = "pellicule_extra_key"
+    }
+}
+
+class CustomGroupeSequenceScrollListener(pelliculeListActivity: PelliculeDetailActivity) :
+    RecyclerView.OnScrollListener() {
+
+    private val pelliculeDetailActivity = pelliculeListActivity
+
+    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+    }
+
+    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+        when {
+            dy > 0 -> pelliculeDetailActivity.notifyPelliculeDetailMovingScroll(1)
+            dy < 0 -> pelliculeDetailActivity.notifyPelliculeDetailMovingScroll(2)
+            else -> pelliculeDetailActivity.notifyPelliculeDetailMovingScroll(0)
+        }
     }
 }

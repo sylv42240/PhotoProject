@@ -1,22 +1,14 @@
 package fr.peaky.photographieproject.ui.adapter
 
-import android.content.Context
 import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.FirebaseFirestore
 import fr.peaky.photographieproject.R
-import fr.peaky.photographieproject.data.PELLICULE_VALUE
-import fr.peaky.photographieproject.data.extension.hide
 import fr.peaky.photographieproject.data.model.Pellicule
 import fr.peaky.photographieproject.ui.activity.PelliculeDetailActivity
 import fr.peaky.photographieproject.ui.activity.PelliculeListActivity
 import fr.peaky.photographieproject.ui.component.inflate
-import kotlinx.android.synthetic.main.activity_pellicule_list.*
 import kotlinx.android.synthetic.main.pellicule_item_holder.view.*
 
 const val PELLICULE_EXTRA_KEY = "pellicule_extra_key"
@@ -71,7 +63,7 @@ class PelliculeViewHolder(view: View, listener: (Pellicule) -> Unit) : RecyclerV
     }
 }
 
-class CustomScrollListener(pelliculeListActivity: PelliculeListActivity) :
+class CustomPelliculeScrollListener(pelliculeListActivity: PelliculeListActivity) :
     RecyclerView.OnScrollListener() {
 
     private val pelliculeListActivity = pelliculeListActivity
@@ -81,9 +73,9 @@ class CustomScrollListener(pelliculeListActivity: PelliculeListActivity) :
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         when {
-            dy > 0 -> pelliculeListActivity.notifyMovingScroll(1)
-            dy < 0 -> pelliculeListActivity.notifyMovingScroll(2)
-            else -> pelliculeListActivity.notifyMovingScroll(0)
+            dy > 0 -> pelliculeListActivity.notifyPelliculeListMovingScroll(1)
+            dy < 0 -> pelliculeListActivity.notifyPelliculeListMovingScroll(2)
+            else -> pelliculeListActivity.notifyPelliculeListMovingScroll(0)
         }
     }
 }

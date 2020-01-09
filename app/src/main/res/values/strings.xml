@@ -15,4 +15,8 @@
     <string name="creer">Créer</string>
     <string name="add_pellicule_title">Créer une pellicule</string>
     <string name="add_pellicule_name">Nom de la pellicule</string>
+    <string name="nouveau_groupe">Créer un nouveau groupe</string>
+    <string name="add_groupe_title">Créer un groupe</string>
+    <string name="groupe_name_hint">Nom du groupe</string>
+    <string name="add_appareil_hint">Ajouter un appareil</string>
 </resources>

@@ -20,7 +20,7 @@ import fr.peaky.photographieproject.data.extension.hide
 import fr.peaky.photographieproject.data.extension.isOnline
 import fr.peaky.photographieproject.data.extension.show
 import fr.peaky.photographieproject.data.model.Pellicule
-import fr.peaky.photographieproject.ui.adapter.CustomScrollListener
+import fr.peaky.photographieproject.ui.adapter.CustomPelliculeScrollListener
 import fr.peaky.photographieproject.ui.adapter.PelliculeAdapter
 import fr.peaky.photographieproject.ui.component.ErrorDisplayComponent
 import fr.peaky.photographieproject.ui.component.ErrorTranslator
@@ -91,13 +91,13 @@ class PelliculeListActivity : AppCompatActivity() {
         }
         adapter.updatePelliculeList(pelliculeList)
         pellicule_recycler_view.adapter = adapter
-        pellicule_recycler_view.addOnScrollListener(CustomScrollListener(this))
+        pellicule_recycler_view.addOnScrollListener(CustomPelliculeScrollListener(this))
         pellicule_recycler_view.layoutManager = LinearLayoutManager(this)
         empty_pellicule_layout.hide()
         pellicule_list_progress_bar.hide()
     }
 
-    fun notifyMovingScroll(responseCode: Int) {
+    fun notifyPelliculeListMovingScroll(responseCode: Int) {
         when (responseCode) {
             1 -> {
                 myBottomAppBar.performHide()
@@ -174,13 +174,19 @@ class PelliculeListActivity : AppCompatActivity() {
                 val pelliculeAdded = Pellicule(it.id, userId.toString(), name, iso)
                 if (noElement) {
                     pelliculeList.add(pelliculeAdded)
+                    pelliculeList.sortBy {pellicule ->
+                        pellicule.name.capitalize()
+                    }
                     adapter.updatePelliculeList(pelliculeList)
                     pellicule_recycler_view.adapter = adapter
-                    pellicule_recycler_view.addOnScrollListener(CustomScrollListener(this))
+                    pellicule_recycler_view.addOnScrollListener(CustomPelliculeScrollListener(this))
                     pellicule_recycler_view.layoutManager = LinearLayoutManager(this)
                     empty_pellicule_layout.hide()
                 } else {
                     pelliculeList.add(pelliculeAdded)
+                    pelliculeList.sortBy {pellicule ->
+                        pellicule.name.capitalize()
+                    }
                     adapter.updatePelliculeList(pelliculeList)
                     adapter.notifyDataSetChanged()
                 }
