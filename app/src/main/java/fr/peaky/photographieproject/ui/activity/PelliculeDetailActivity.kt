@@ -101,7 +101,7 @@ class PelliculeDetailActivity : AppCompatActivity() {
         groupeSequenceList.sortBy {
             it.name.capitalize()
         }
-        adapter.updatePelliculeList(groupeSequenceList)
+        adapter.updateGroupeSequenceList(groupeSequenceList)
         grp_recycler_view.adapter = adapter
         grp_recycler_view.addOnScrollListener(CustomGroupeSequenceScrollListener(this))
         grp_recycler_view.layoutManager = LinearLayoutManager(this)
@@ -248,7 +248,7 @@ class PelliculeDetailActivity : AppCompatActivity() {
                     groupeSequenceList.sortBy { groupeSequence1 ->
                         groupeSequence1.name.capitalize()
                     }
-                    adapter.updatePelliculeList(groupeSequenceList)
+                    adapter.updateGroupeSequenceList(groupeSequenceList)
                     grp_recycler_view.adapter = adapter
                     grp_recycler_view.addOnScrollListener(
                         CustomGroupeSequenceScrollListener(
@@ -262,7 +262,7 @@ class PelliculeDetailActivity : AppCompatActivity() {
                     groupeSequenceList.sortBy { groupeSequence1 ->
                         groupeSequence1.name.capitalize()
                     }
-                    adapter.updatePelliculeList(groupeSequenceList)
+                    adapter.updateGroupeSequenceList(groupeSequenceList)
                     adapter.notifyDataSetChanged()
                 }
             }
@@ -292,13 +292,13 @@ class PelliculeDetailActivity : AppCompatActivity() {
 
     private fun deleteGroupeSequenceToFirestore(groupeSequence: GroupeSequence) {
 
-        db.collection(PELLICULE_VALUE)
+        db.collection(GROUPE_SEQUENCE_VALUE)
             .document(groupeSequence.id)
             .delete()
             .addOnSuccessListener {
                 Toast.makeText(this, "Supprimé avec succès", Toast.LENGTH_LONG).show()
                 groupeSequenceList.remove(groupeSequence)
-                adapter.updatePelliculeList(groupeSequenceList)
+                adapter.updateGroupeSequenceList(groupeSequenceList)
                 adapter.notifyDataSetChanged()
                 if (groupeSequenceList.isEmpty()) {
                     updateBackground()

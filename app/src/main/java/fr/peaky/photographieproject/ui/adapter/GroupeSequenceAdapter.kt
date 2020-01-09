@@ -7,9 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import fr.peaky.photographieproject.R
 import fr.peaky.photographieproject.data.model.GroupeSequence
 import fr.peaky.photographieproject.ui.activity.PelliculeDetailActivity
+import fr.peaky.photographieproject.ui.activity.SequenceListActivity
 import fr.peaky.photographieproject.ui.component.inflate
 import kotlinx.android.synthetic.main.groupe_sequence_item_holder.view.*
 
+
+const val GROUPE_SEQUENCE_EXTRA_KEY = "groupe_sequence_extra_key"
 
 class GroupSequenceAdapter : RecyclerView.Adapter<GroupeSequenceViewHolder>() {
 
@@ -29,7 +32,7 @@ class GroupSequenceAdapter : RecyclerView.Adapter<GroupeSequenceViewHolder>() {
         return GroupeSequenceViewHolder(inflatedView, listener)
     }
 
-    fun updatePelliculeList(pellicules: List<GroupeSequence>) {
+    fun updateGroupeSequenceList(pellicules: List<GroupeSequence>) {
         this.groupeSequences = pellicules
         notifyDataSetChanged()
     }
@@ -43,8 +46,8 @@ class GroupeSequenceViewHolder(view: View, listener: (GroupeSequence) -> Unit) :
 
     init {
         rootView.setOnClickListener {
-            val intent = Intent(it.context, PelliculeDetailActivity::class.java)
-            intent.putExtra(PELLICULE_EXTRA_KEY, groupeSequence)
+            val intent = Intent(it.context, SequenceListActivity::class.java)
+            intent.putExtra(GROUPE_SEQUENCE_EXTRA_KEY, groupeSequence)
             it.context.startActivity(intent)
         }
         rootView.setOnLongClickListener{
@@ -56,10 +59,6 @@ class GroupeSequenceViewHolder(view: View, listener: (GroupeSequence) -> Unit) :
     fun bindPellicule(groupeSequence: GroupeSequence) {
         this.groupeSequence = groupeSequence
         rootView.groupeSequenceName.text = groupeSequence.name
-    }
-
-    companion object {
-        const val PELLICULE_EXTRA_KEY = "pellicule_extra_key"
     }
 }
 

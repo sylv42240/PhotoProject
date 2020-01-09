@@ -19,4 +19,5 @@
     <string name="add_groupe_title">Créer un groupe</string>
     <string name="groupe_name_hint">Nom du groupe</string>
     <string name="add_appareil_hint">Ajouter un appareil</string>
+    <string name="aucune_sequence">Aucune séquence trouvée</string>
 </resources>
