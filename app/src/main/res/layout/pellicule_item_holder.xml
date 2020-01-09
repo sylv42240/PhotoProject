@@ -20,7 +20,6 @@
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground">
 
-
         <TextView
             android:id="@+id/pellicule_name"
             android:layout_width="0dp"

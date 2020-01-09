@@ -8,6 +8,7 @@ import fr.peaky.photographieproject.R
 import fr.peaky.photographieproject.data.model.GroupeSequence
 import fr.peaky.photographieproject.ui.activity.PelliculeDetailActivity
 import fr.peaky.photographieproject.ui.component.inflate
+import kotlinx.android.synthetic.main.groupe_sequence_item_holder.view.*
 import kotlinx.android.synthetic.main.pellicule_item_holder.view.*
 
 
@@ -57,7 +58,7 @@ class GroupeSequenceViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun bindPellicule(groupeSequence: GroupeSequence) {
         this.groupeSequence = groupeSequence
-        rootView.pelliculeName.text = groupeSequence.name
+        rootView.groupeSequenceName.text = groupeSequence.name
     }
 
     companion object {
