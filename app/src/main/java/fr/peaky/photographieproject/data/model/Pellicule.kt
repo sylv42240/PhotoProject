@@ -6,6 +6,5 @@ data class Pellicule (
     var id: String = "",
     val userId: String = "",
     val name: String = "",
-    val iso: String = "",
-    val groupeSequenceCount: Int = 0
+    val iso: String = ""
 ) : Serializable

@@ -41,6 +41,7 @@ class PelliculeListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pellicule_list)
         alertDialog = Dialog(this)
+        adapter.listener = this::deletePelliculeToFirestore
         val view: View = findViewById(android.R.id.content)
         getDatabaseInfos(view)
         researchFabMenuBar.setOnClickListener {
@@ -58,7 +59,9 @@ class PelliculeListActivity : AppCompatActivity() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         task.result?.map { document ->
-                            val pellicule = document.toObject(Pellicule::class.java)
+                            val pellicule = document.toObject(Pellicule::class.java).apply {
+                                this.id = document.id
+                            }
                             pelliculeList.add(pellicule)
                         }
                         if (pelliculeList.isEmpty()) {
@@ -83,6 +86,9 @@ class PelliculeListActivity : AppCompatActivity() {
     }
 
     private fun updateRecyclerView(pelliculeList: MutableList<Pellicule>) {
+        pelliculeList.sortBy {
+            it.name.capitalize()
+        }
         adapter.updatePelliculeList(pelliculeList)
         pellicule_recycler_view.adapter = adapter
         pellicule_recycler_view.addOnScrollListener(CustomScrollListener(this))
@@ -184,6 +190,25 @@ class PelliculeListActivity : AppCompatActivity() {
                     .show()
             }
         return true
+    }
+
+    private fun deletePelliculeToFirestore(pellicule: Pellicule) {
+
+        db.collection(PELLICULE_VALUE)
+            .document(pellicule.id)
+            .delete()
+            .addOnSuccessListener {
+                Toast.makeText(this, "Supprimé avec succès", Toast.LENGTH_LONG).show()
+                pelliculeList.remove(pellicule)
+                adapter.updatePelliculeList(pelliculeList)
+                adapter.notifyDataSetChanged()
+                if (pelliculeList.isEmpty()){
+                    updateBackground()
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Le document n'a pas pu être supprimé", Toast.LENGTH_LONG).show()
+            }
     }
 
 }
