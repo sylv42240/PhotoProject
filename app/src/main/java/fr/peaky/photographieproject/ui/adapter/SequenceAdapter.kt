@@ -47,7 +47,7 @@ class SequenceViewHolder(view: View, listener: (Sequence) -> Unit) : RecyclerVie
     init {
         rootView.setOnClickListener {
             val intent = Intent(it.context, SequenceDetailActivity::class.java)
-            intent.putExtra(GROUPE_SEQUENCE_EXTRA_KEY, sequence)
+            intent.putExtra(SEQUENCE_EXTRA_KEY, sequence)
             it.context.startActivity(intent)
         }
         rootView.setOnLongClickListener{

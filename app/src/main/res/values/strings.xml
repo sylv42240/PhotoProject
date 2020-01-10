@@ -22,4 +22,7 @@
     <string name="aucune_sequence">Aucune séquence trouvée</string>
     <string name="nouvelle_sequence">Créer une nouvelle séquence</string>
     <string name="aucune_photo">Aucune photo trouvée</string>
+    <string name="nouvelle_photo">Prendre une nouvelle photo</string>
+    <string name="enregistrer_photo">Enregistrer ma photo</string>
+    <string name="no_objectif">Aucun objectif</string>
 </resources>

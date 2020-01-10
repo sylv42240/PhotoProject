@@ -79,10 +79,14 @@
             tools:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/sequence_recycler_view"
+            android:id="@+id/photos_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:clipToPadding="false"
+            android:layout_marginEnd="@dimen/margin8"
+            android:layout_marginStart="@dimen/margin8"
+            app:spanCount="2"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             android:padding="@dimen/padding16"
             android:layout_marginTop="@dimen/margin8"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -99,7 +103,7 @@
         android:layout_centerHorizontal="true">
 
         <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/myBottomAppBar2"
+            android:id="@+id/myBottomAppBar4"
             style="@style/Widget.MaterialComponents.BottomAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -108,17 +112,17 @@
             app:fabAlignmentMode="center" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/researchFabMenuBar3"
+            android:id="@+id/researchFabMenuBar4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/fabMarginBottom"
             android:backgroundTint="@color/colorAccent"
             android:elevation="@dimen/elevationFab"
-            android:text="@string/nouvelle_sequence"
+            android:text="@string/nouvelle_photo"
             android:textAlignment="center"
             android:textColor="@color/textColor"
             android:textStyle="bold"
-            app:layout_anchor="@id/myBottomAppBar2" />
+            app:layout_anchor="@id/myBottomAppBar4" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
