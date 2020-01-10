@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.activity.SequenceListActivity"></activity>
+        <activity android:name=".ui.activity.SequenceDetailActivity"></activity>
+        <activity android:name=".ui.activity.SequenceListActivity" />
         <activity android:name=".ui.activity.PelliculeDetailActivity" />
         <activity android:name=".ui.activity.PelliculeListActivity" />
         <activity

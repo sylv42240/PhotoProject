@@ -62,10 +62,10 @@ class GroupeSequenceViewHolder(view: View, listener: (GroupeSequence) -> Unit) :
     }
 }
 
-class CustomGroupeSequenceScrollListener(pelliculeListActivity: PelliculeDetailActivity) :
+class CustomGroupeSequenceScrollListener(pelliculeDetailActivity: PelliculeDetailActivity) :
     RecyclerView.OnScrollListener() {
 
-    private val pelliculeDetailActivity = pelliculeListActivity
+    private val pelliculeDetailActivity = pelliculeDetailActivity
 
     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
     }

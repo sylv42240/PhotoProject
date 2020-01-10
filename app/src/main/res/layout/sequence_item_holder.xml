@@ -4,7 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="60dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="@dimen/margin8"
+    android:layout_marginStart="@dimen/margin16"
+    android:layout_marginEnd="@dimen/margin16"
     android:elevation="@dimen/padding16"
     app:cardCornerRadius="@dimen/radiusCornerCardview">
 
@@ -15,17 +18,18 @@
         android:padding="@dimen/padding16">
 
         <TextView
-            android:id="@+id/groupeSequenceName"
+            android:id="@+id/sequence_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/nameGroupeSequence"
             android:textAllCaps="true"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/textTitle"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Sequence n°1" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

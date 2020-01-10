@@ -46,37 +46,39 @@
 
 
         <TextView
-            android:id="@+id/pellicule_detail_name"
+            android:id="@+id/grp_detail_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/textTitle"
             android:layout_marginStart="@dimen/margin8"
+            android:layout_marginTop="@dimen/margin8"
             android:textStyle="bold"
+            android:textAllCaps="true"
             android:textColor="@color/colorPrimaryDark"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Pellicule 1" />
+            tools:text="Groupe séquence 1" />
 
         <TextView
-            android:id="@+id/pellicule_detail_iso"
+            android:id="@+id/grp_detail_appareil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/headerText"
             android:layout_marginStart="@dimen/margin8"
             android:layout_marginTop="@dimen/margin8"
             android:textColor="@color/colorPrimaryDark"
-            app:layout_constraintTop_toBottomOf="@id/pellicule_detail_name"
-            tools:text="ISO 800" />
+            app:layout_constraintTop_toBottomOf="@id/grp_detail_name"
+            tools:text="Appareil 1" />
 
         <View
-            android:id="@+id/view"
+            android:id="@+id/view2"
             android:layout_marginTop="@dimen/margin8"
             android:background="@color/colorPrimary"
-            app:layout_constraintTop_toBottomOf="@id/pellicule_detail_iso"
+            app:layout_constraintTop_toBottomOf="@id/grp_detail_appareil"
             android:layout_width="match_parent"
             android:layout_height="3dp"/>
 
         <ProgressBar
-            android:id="@+id/grp_list_progress_bar"
+            android:id="@+id/sequence_list_progress_bar"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:indeterminateTint="@android:color/black"
@@ -87,14 +89,14 @@
             tools:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/grp_recycler_view"
+            android:id="@+id/sequence_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:clipToPadding="false"
             android:padding="@dimen/padding16"
             android:layout_marginTop="@dimen/margin8"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view" />
+            app:layout_constraintTop_toBottomOf="@+id/view2" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -107,7 +109,7 @@
         android:layout_centerHorizontal="true">
 
         <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/myBottomAppBar"
+            android:id="@+id/myBottomAppBar2"
             style="@style/Widget.MaterialComponents.BottomAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -116,17 +118,17 @@
             app:fabAlignmentMode="center" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/researchFabMenuBar2"
+            android:id="@+id/researchFabMenuBar3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/fabMarginBottom"
             android:backgroundTint="@color/colorAccent"
             android:elevation="@dimen/elevationFab"
-            android:text="@string/nouveau_groupe"
+            android:text="@string/nouvelle_sequence"
             android:textAlignment="center"
             android:textColor="@color/textColor"
             android:textStyle="bold"
-            app:layout_anchor="@id/myBottomAppBar" />
+            app:layout_anchor="@id/myBottomAppBar2" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
