@@ -25,4 +25,5 @@
     <string name="nouvelle_photo">Prendre une nouvelle photo</string>
     <string name="enregistrer_photo">Enregistrer ma photo</string>
     <string name="no_objectif">Aucun objectif</string>
+    <string name="modifier">Modifier</string>
 </resources>

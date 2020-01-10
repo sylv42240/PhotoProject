@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/edit_photo_dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:text="Modifier le numéro de pellicule"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/edit_photo_dialog_attribute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin16"
+        android:text="Numéro : "
+        android:textSize="@dimen/textTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_photo_dialog_title" />
+
+    <EditText
+        android:id="@+id/edit_photo_dialog_edit"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin16"
+        android:layout_marginStart="@dimen/margin8"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_photo_dialog_attribute"
+        app:layout_constraintStart_toEndOf="@+id/edit_photo_dialog_attribute"
+        app:layout_constraintTop_toBottomOf="@+id/edit_photo_dialog_title" />
+
+
+    <Button
+        android:id="@+id/edit_photo_dialog_cancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin8"
+        android:layout_marginEnd="@dimen/margin8"
+        android:background="@color/colorAccent"
+        android:text="@string/annuler"
+        android:textColor="@color/textColor"
+        app:layout_constraintEnd_toStartOf="@id/edit_photo_dialog_validate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_photo_dialog_edit" />
+
+    <Button
+        android:id="@+id/edit_photo_dialog_validate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin8"
+        android:background="@color/colorAccent"
+        android:text="@string/modifier"
+        android:textColor="@color/textColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/edit_photo_dialog_cancel"
+        app:layout_constraintTop_toBottomOf="@+id/edit_photo_dialog_edit" />
+</androidx.constraintlayout.widget.ConstraintLayout>
