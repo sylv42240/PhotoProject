@@ -1,50 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="5dp">
 
     <TextView
-        android:id="@+id/edit_photo_dialog_title"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:text="Modifier le numéro de pellicule"
-        android:textSize="22dp"
+        android:text="Modifier l'Objectif"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
-        android:id="@+id/edit_photo_dialog_attribute"
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin16"
-        android:text="Numéro : "
+        android:layout_marginTop="@dimen/margin8"
+        android:text="Objectif : "
         android:textSize="@dimen/textTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_photo_dialog_title" />
+        app:layout_constraintTop_toBottomOf="@+id/add_photo_dialog_edit" />
+
+    <Spinner
+        android:id="@+id/add_photo_dialog_spinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin8"
+        app:layout_constraintBottom_toBottomOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/add_photo_dialog_edit"/>
 
     <EditText
-        android:id="@+id/edit_photo_dialog_edit"
-        android:layout_width="80dp"
+        android:id="@+id/add_photo_dialog_edit"
+        android:hint="Ajouter un objectif"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin16"
-        android:maxLength="3"
-        android:layout_marginStart="@dimen/margin8"
-        android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="@+id/edit_photo_dialog_attribute"
-        app:layout_constraintStart_toEndOf="@+id/edit_photo_dialog_attribute"
-        app:layout_constraintTop_toBottomOf="@+id/edit_photo_dialog_title" />
-
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
-        android:id="@+id/edit_photo_dialog_cancel"
+        android:id="@+id/add_photo_dialog_cancel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin8"
@@ -52,12 +56,12 @@
         android:background="@color/colorAccent"
         android:text="@string/annuler"
         android:textColor="@color/textColor"
-        app:layout_constraintEnd_toStartOf="@id/edit_photo_dialog_validate"
+        app:layout_constraintEnd_toStartOf="@id/add_photo_dialog_validate"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_photo_dialog_edit" />
+        app:layout_constraintTop_toBottomOf="@+id/add_photo_dialog_spinner" />
 
     <Button
-        android:id="@+id/edit_photo_dialog_validate"
+        android:id="@+id/add_photo_dialog_validate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin8"
@@ -65,6 +69,7 @@
         android:text="@string/modifier"
         android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/edit_photo_dialog_cancel"
-        app:layout_constraintTop_toBottomOf="@+id/edit_photo_dialog_edit" />
+        app:layout_constraintStart_toEndOf="@id/add_photo_dialog_cancel"
+        app:layout_constraintTop_toBottomOf="@+id/add_photo_dialog_spinner" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
