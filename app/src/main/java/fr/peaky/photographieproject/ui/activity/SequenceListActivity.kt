@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
 import fr.peaky.photographieproject.R
 import fr.peaky.photographieproject.data.APPAREIL_VALUE
-import fr.peaky.photographieproject.data.GROUPE_SEQUENCE_VALUE
 import fr.peaky.photographieproject.data.GRP_SEQUENCE_PARAMETER
 import fr.peaky.photographieproject.data.SEQUENCE_VALUE
 import fr.peaky.photographieproject.data.exception.FirestoreException
@@ -52,9 +51,8 @@ class SequenceListActivity : AppCompatActivity() {
     private fun addSequenceToDatabase(groupeSequenceId: String) {
 
         val sequence = HashMap<String, String>()
-        var name = ""
-        var numbers = mutableListOf<Int>()
-        name = if (sequenceList.isEmpty()){
+        val numbers = mutableListOf<Int>()
+        val name = if (sequenceList.isEmpty()){
             "Séquence 1"
         }else{
             sequenceList.map {

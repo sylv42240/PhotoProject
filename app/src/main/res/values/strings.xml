@@ -21,4 +21,5 @@
     <string name="add_appareil_hint">Ajouter un appareil</string>
     <string name="aucune_sequence">Aucune séquence trouvée</string>
     <string name="nouvelle_sequence">Créer une nouvelle séquence</string>
+    <string name="aucune_photo">Aucune photo trouvée</string>
 </resources>
