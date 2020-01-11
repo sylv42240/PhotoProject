@@ -1,7 +1,15 @@
 package fr.peaky.photographieproject.ui.activity
 
+import android.app.Activity
 import android.app.Dialog
+import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.os.StrictMode
+import android.provider.MediaStore
+import android.provider.MediaStore.Images
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,15 +20,17 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import fr.peaky.photographieproject.R
-import fr.peaky.photographieproject.data.APPAREIL_VALUE
 import fr.peaky.photographieproject.data.OBJECTIF_VALUE
 import fr.peaky.photographieproject.data.PHOTO_VALUE
 import fr.peaky.photographieproject.data.USER_PARAMETER
 import fr.peaky.photographieproject.data.exception.FirestoreException
 import fr.peaky.photographieproject.data.exception.NetworkException
+import fr.peaky.photographieproject.data.extension.hide
 import fr.peaky.photographieproject.data.extension.isOnline
-import fr.peaky.photographieproject.data.model.Appareil
+import fr.peaky.photographieproject.data.extension.show
 import fr.peaky.photographieproject.data.model.Objectif
 import fr.peaky.photographieproject.data.model.Photo
 import fr.peaky.photographieproject.ui.adapter.CREATION_MODE
@@ -30,8 +40,11 @@ import fr.peaky.photographieproject.ui.component.ErrorDisplayComponent
 import fr.peaky.photographieproject.ui.component.ErrorTranslator
 import kotlinx.android.synthetic.main.activity_pellicule_detail.*
 import kotlinx.android.synthetic.main.activity_photo_detail.*
+import java.io.File
+
 
 const val NO_OBJECTIF = "Aucun objectif"
+const val CAMERA_CODE: Int = 2
 
 class PhotoDetailActivity : AppCompatActivity() {
 
@@ -44,7 +57,9 @@ class PhotoDetailActivity : AppCompatActivity() {
     private val objectifList = mutableListOf<Objectif>()
     private val objectifNameList = mutableListOf<String>()
     private val userId = FirebaseAuth.getInstance().currentUser?.uid
-
+    private lateinit var mStorageRef: StorageReference
+    private var file: File = File("", "")
+    private var fileUri: Uri = Uri.fromFile(file)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +67,7 @@ class PhotoDetailActivity : AppCompatActivity() {
         val photoIntent = intent.getSerializableExtra(PHOTO_EXTRA_KEY) as Photo
         this.photo = photoIntent
         photoImagePath = photo.imagePath
+        mStorageRef = FirebaseStorage.getInstance().reference
         alertDialog = Dialog(this)
         val photoState = intent.getStringExtra(PHOTO_STATE_EXTRA_KEY)
         val view: View = findViewById(android.R.id.content)
@@ -60,9 +76,13 @@ class PhotoDetailActivity : AppCompatActivity() {
             photo_mode.text = "Portrait"
             photo_ouverture.text = "F5.6"
             photo_numero.text = "1"
+            photo_objectif.text = NO_OBJECTIF
             Glide.with(this).load(photo.imagePath)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(photo_image)
+            researchFabMenuBar5.setOnClickListener {
+                addPhotoToFirestore(photo)
+            }
         } else {
             getObjectifFromDatabase(photo, view)
             objectifId = photo.objectifId
@@ -70,6 +90,10 @@ class PhotoDetailActivity : AppCompatActivity() {
 
         exposition_layout.setOnClickListener {
             showUpdateExpositionDialog()
+        }
+
+        image_layout.setOnClickListener {
+            showCameraInterface()
         }
 
         mode_layout.setOnClickListener {
@@ -87,6 +111,72 @@ class PhotoDetailActivity : AppCompatActivity() {
         objectif_layout.setOnClickListener {
             getObjectifListFromDatabase()
         }
+    }
+
+    private fun showCameraInterface() {
+        val builder = StrictMode.VmPolicy.Builder()
+        StrictMode.setVmPolicy(builder.build())
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        file = File(this.externalCacheDir, (System.currentTimeMillis()).toString() + ".jpg")
+        fileUri = Uri.fromFile(file)
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri)
+        startActivityForResult(intent, CAMERA_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CAMERA_CODE && resultCode == Activity.RESULT_OK){
+            photo_detail_progress_bar.show()
+            val ref = mStorageRef.child("images/" + System.currentTimeMillis())
+            val uploadTask = ref.putFile(fileUri)
+            uploadTask.addOnFailureListener {
+                Toast.makeText(this, "Téléchargement échoué", Toast.LENGTH_SHORT).show()
+                photo_detail_progress_bar.hide()
+            }.addOnSuccessListener {
+                Toast.makeText(this, "Image téléchargée avec succès", Toast.LENGTH_SHORT).show()
+                photo_detail_progress_bar.hide()
+            }.continueWithTask { task ->
+                if (!task.isSuccessful) {
+                    task.exception?.let {
+                        throw it
+                    }
+                }
+                ref.downloadUrl
+            }.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val downloadUri = task.result
+                    Glide.with(this).load(downloadUri).diskCacheStrategy(DiskCacheStrategy.ALL).into(photo_image)
+                    photoImagePath = downloadUri.toString()
+                }
+            }
+        }
+    }
+
+
+
+    private fun addPhotoToFirestore(photo: Photo) {
+        val photoToAdd = HashMap<String, Any>()
+        photoToAdd["description"] = photo_description.text.toString()
+        photoToAdd["exposition"] = photo_exposition.text.toString()
+        photoToAdd["imagePath"] = photoImagePath
+        photoToAdd["mode"] = photo_mode.text.toString()
+        photoToAdd["numberPhoto"] = photo_numero.text.toString().toInt()
+        photoToAdd["objectifId"] = objectifId
+        photoToAdd["sequenceId"] = photo.sequenceId
+        photoToAdd["time"] = photo.time
+        photoToAdd["ouverture"] = photo_ouverture.text.toString()
+
+
+        db.collection(PHOTO_VALUE)
+            .add(photoToAdd)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Ajoutée avec succès", Toast.LENGTH_LONG).show()
+                finish()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Le document n'a pas pu être enregistré", Toast.LENGTH_LONG)
+                    .show()
+            }
     }
 
 
