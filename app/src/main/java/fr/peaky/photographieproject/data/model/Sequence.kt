@@ -4,6 +4,7 @@ import java.io.Serializable
 
 data class Sequence(
     var id: String = "",
-    val groupeSequenceId: String = "",
-    val name: String = ""
+    val pelliculeId: String = "",
+    val name: String = "",
+    val appareilId: String = ""
 ): Serializable

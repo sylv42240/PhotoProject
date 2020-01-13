@@ -19,11 +19,11 @@ import fr.peaky.photographieproject.data.extension.hide
 import fr.peaky.photographieproject.data.extension.isOnline
 import fr.peaky.photographieproject.data.extension.show
 import fr.peaky.photographieproject.data.model.Appareil
-import fr.peaky.photographieproject.data.model.GroupeSequence
 import fr.peaky.photographieproject.data.model.Pellicule
-import fr.peaky.photographieproject.ui.adapter.CustomGroupeSequenceScrollListener
-import fr.peaky.photographieproject.ui.adapter.GroupSequenceAdapter
+import fr.peaky.photographieproject.data.model.Sequence
+import fr.peaky.photographieproject.ui.adapter.CustomSequenceScrollListener
 import fr.peaky.photographieproject.ui.adapter.PELLICULE_EXTRA_KEY
+import fr.peaky.photographieproject.ui.adapter.SequenceAdapter
 import fr.peaky.photographieproject.ui.component.ErrorDisplayComponent
 import fr.peaky.photographieproject.ui.component.ErrorTranslator
 import kotlinx.android.synthetic.main.activity_pellicule_detail.*
@@ -35,9 +35,9 @@ class PelliculeDetailActivity : AppCompatActivity() {
 
     private val errorDisplayComponent = ErrorDisplayComponent(ErrorTranslator(this))
     private val db = FirebaseFirestore.getInstance()
-    private val adapter = GroupSequenceAdapter()
+    private val adapter = SequenceAdapter()
     private lateinit var alertDialog: Dialog
-    private val groupeSequenceList = mutableListOf<GroupeSequence>()
+    private val sequenceList = mutableListOf<Sequence>()
     private val appareilList = mutableListOf<Appareil>()
     private var noElement = false
     private val userId = FirebaseAuth.getInstance().currentUser?.uid
@@ -52,7 +52,7 @@ class PelliculeDetailActivity : AppCompatActivity() {
         pellicule_detail_name.text = pellicule.name
         pellicule_detail_iso.text = pellicule.iso
         alertDialog = Dialog(this)
-        adapter.listener = this::deleteGroupeSequenceToFirestore
+        adapter.listener = this::deleteSequenceToFirestore
         val view: View = findViewById(android.R.id.content)
         getDatabaseInfos(view, pellicule)
         researchFabMenuBar2.setOnClickListener {
@@ -62,24 +62,24 @@ class PelliculeDetailActivity : AppCompatActivity() {
 
 
     private fun getDatabaseInfos(view: View, pellicule: Pellicule) {
-        groupeSequenceList.clear()
+        sequenceList.clear()
         if (isOnline(this)) {
-            db.collection(GROUPE_SEQUENCE_VALUE)
+            db.collection(SEQUENCE_VALUE)
                 .whereEqualTo(PELLICULE_PARAMETER, pellicule.id)
                 .get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         task.result?.map { document ->
-                            val groupeSequence =
-                                document.toObject(GroupeSequence::class.java).apply {
+                            val sequence =
+                                document.toObject(Sequence::class.java).apply {
                                     this.id = document.id
                                 }
-                            groupeSequenceList.add(groupeSequence)
+                            sequenceList.add(sequence)
                         }
-                        if (groupeSequenceList.isEmpty()) {
+                        if (sequenceList.isEmpty()) {
                             updateBackground()
                         } else {
-                            updateRecyclerView(groupeSequenceList)
+                            updateRecyclerView(sequenceList)
                         }
                     } else {
                         errorDisplayComponent.displayError(FirestoreException(), view)
@@ -97,13 +97,13 @@ class PelliculeDetailActivity : AppCompatActivity() {
         noElement = true
     }
 
-    private fun updateRecyclerView(groupeSequenceList: MutableList<GroupeSequence>) {
-        groupeSequenceList.sortBy {
+    private fun updateRecyclerView(sequenceList: MutableList<Sequence>) {
+        sequenceList.sortBy {
             it.name.capitalize()
         }
-        adapter.updateGroupeSequenceList(groupeSequenceList)
+        adapter.updateGroupeSequenceList(sequenceList)
         grp_recycler_view.adapter = adapter
-        grp_recycler_view.addOnScrollListener(CustomGroupeSequenceScrollListener(this))
+        grp_recycler_view.addOnScrollListener(CustomSequenceScrollListener(this))
         grp_recycler_view.layoutManager = LinearLayoutManager(this)
         empty_grp_layout.hide()
         grp_list_progress_bar.hide()
@@ -156,18 +156,16 @@ class PelliculeDetailActivity : AppCompatActivity() {
     private fun showAddGroupeSequenceDialog() {
         val viewGroup = findViewById<ViewGroup>(android.R.id.content)
         val dialogView =
-            LayoutInflater.from(this).inflate(R.layout.create_grp_sequence_dialog, viewGroup, false)
+            LayoutInflater.from(this).inflate(R.layout.create_sequence_dialog, viewGroup, false)
         val buttonValidate = dialogView.findViewById<Button>(R.id.btn_validate)
         val buttonCancel = dialogView.findViewById<Button>(R.id.btn_cancel)
         val spinner = dialogView.findViewById<Spinner>(R.id.appareil_spinner)
         val spinnerList = appareilNameList
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, spinnerList)
-        val editText = dialogView.findViewById<EditText>(R.id.grp_sequence_name)
         val editTextAppareil = dialogView.findViewById<EditText>(R.id.appareil_name)
         spinner.adapter = arrayAdapter
         buttonValidate.setOnClickListener {
             if (verifDialog(
-                    editText.text.toString(),
                     spinner.selectedItem.toString(),
                     editTextAppareil.text.toString(),
                     spinner.selectedItemPosition
@@ -188,19 +186,11 @@ class PelliculeDetailActivity : AppCompatActivity() {
     }
 
     private fun verifDialog(
-        name: String,
         appareilSpinner: String,
         appareilEditText: String,
         appareilIndex: Int
     ): Boolean {
-        if (name.length !in 5..40) {
-            Toast.makeText(
-                this,
-                "Le nom du groupe doit être compris entre 5 et 40 charactères",
-                Toast.LENGTH_LONG
-            ).show()
-            return false
-        }
+
 
         if (appareilSpinner == NO_APPAREIL){
             if(appareilEditText.length !in 5..40 && appareilEditText.isNotBlank()){
@@ -222,47 +212,60 @@ class PelliculeDetailActivity : AppCompatActivity() {
         }
 
         if (appareilSpinner != NO_APPAREIL){
-            addGroupeSequenceToFirestore(name, appareilList[appareilIndex].id, pelliculeId)
+            addGroupeSequenceToFirestore(appareilList[appareilIndex].id, pelliculeId)
         }else{
-            addAppareilToFirestore(appareilEditText, userId, name)
+            addAppareilToFirestore(appareilEditText, userId)
         }
 
 
         return true
     }
 
-    private fun addGroupeSequenceToFirestore(name: String, appareilId:String, pelliculeId:String){
-        val groupeSequence = HashMap<String, String>()
-        groupeSequence["name"] = name
-        groupeSequence["appareilId"] = appareilId
-        groupeSequence["pelliculeId"] = pelliculeId
+    private fun addGroupeSequenceToFirestore(appareilId:String, pelliculeId:String){
 
 
-        db.collection(GROUPE_SEQUENCE_VALUE)
-            .add(groupeSequence)
+
+        val sequence = HashMap<String, String>()
+        val numbers = mutableListOf<Int>()
+        val name = if (sequenceList.isEmpty()){
+            "Pellicule 1"
+        }else{
+            sequenceList.map {
+                numbers.add(it.name.takeLast(1).toInt())
+            }
+            "Pellicule " +(numbers.max()?.plus(1))
+        }
+
+        sequence["name"] = name
+        sequence["appareilId"] = appareilId
+        sequence["pelliculeId"] = pelliculeId
+
+
+        db.collection(SEQUENCE_VALUE)
+            .add(sequence)
             .addOnSuccessListener {
-                Toast.makeText(this, "Ajouté avec succès", Toast.LENGTH_LONG).show()
-                val groupeSequenceAdded = GroupeSequence(it.id, pelliculeId, appareilId, name)
+                Toast.makeText(this, "Ajoutée avec succès", Toast.LENGTH_LONG).show()
+                val sequenceAdded = Sequence(it.id,pelliculeId, name, appareilId)
                 if (noElement) {
-                    groupeSequenceList.add(groupeSequenceAdded)
-                    groupeSequenceList.sortBy { groupeSequence1 ->
-                        groupeSequence1.name.capitalize()
+                    sequenceList.add(sequenceAdded)
+                    sequenceList.sortBy { sequence1 ->
+                        sequence1.name.capitalize()
                     }
-                    adapter.updateGroupeSequenceList(groupeSequenceList)
+                    adapter.updateGroupeSequenceList(sequenceList)
                     grp_recycler_view.adapter = adapter
                     grp_recycler_view.addOnScrollListener(
-                        CustomGroupeSequenceScrollListener(
+                        CustomSequenceScrollListener(
                             this
                         )
                     )
                     grp_recycler_view.layoutManager = LinearLayoutManager(this)
                     empty_grp_layout.hide()
                 } else {
-                    groupeSequenceList.add(groupeSequenceAdded)
-                    groupeSequenceList.sortBy { groupeSequence1 ->
+                    sequenceList.add(sequenceAdded)
+                    sequenceList.sortBy { groupeSequence1 ->
                         groupeSequence1.name.capitalize()
                     }
-                    adapter.updateGroupeSequenceList(groupeSequenceList)
+                    adapter.updateGroupeSequenceList(sequenceList)
                     adapter.notifyDataSetChanged()
                 }
             }
@@ -272,7 +275,7 @@ class PelliculeDetailActivity : AppCompatActivity() {
             }
     }
 
-    private fun addAppareilToFirestore(name: String, userId: String?, groupeSequenceName: String) {
+    private fun addAppareilToFirestore(name: String, userId: String?) {
         val appareil = HashMap<String, String>()
         appareil["name"] = name
         appareil["userId"] = userId!!
@@ -282,7 +285,7 @@ class PelliculeDetailActivity : AppCompatActivity() {
             .add(appareil)
             .addOnSuccessListener {
                 val appareilAdded = Appareil(it.id, userId, name)
-                addGroupeSequenceToFirestore(groupeSequenceName, appareilAdded.id, pelliculeId)
+                addGroupeSequenceToFirestore(appareilAdded.id, pelliculeId)
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Le document n'a pas pu être enregistré", Toast.LENGTH_LONG)
@@ -290,17 +293,16 @@ class PelliculeDetailActivity : AppCompatActivity() {
             }
     }
 
-    private fun deleteGroupeSequenceToFirestore(groupeSequence: GroupeSequence) {
-
-        db.collection(GROUPE_SEQUENCE_VALUE)
-            .document(groupeSequence.id)
+    private fun deleteSequenceToFirestore(sequence: Sequence) {
+        db.collection(SEQUENCE_VALUE)
+            .document(sequence.id)
             .delete()
             .addOnSuccessListener {
-                Toast.makeText(this, "Supprimé avec succès", Toast.LENGTH_LONG).show()
-                groupeSequenceList.remove(groupeSequence)
-                adapter.updateGroupeSequenceList(groupeSequenceList)
+                Toast.makeText(this, "Supprimée avec succès", Toast.LENGTH_LONG).show()
+                sequenceList.remove(sequence)
+                adapter.updateGroupeSequenceList(sequenceList)
                 adapter.notifyDataSetChanged()
-                if (groupeSequenceList.isEmpty()) {
+                if (sequenceList.isEmpty()) {
                     updateBackground()
                 }
             }

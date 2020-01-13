@@ -73,7 +73,7 @@ class PhotoDetailActivity : AppCompatActivity() {
         val view: View = findViewById(android.R.id.content)
         if (photoState == CREATION_MODE) {
             photo_exposition.text = "1/125"
-            photo_mode.text = "Portrait"
+            photo_mode.text = "Scène Portrait"
             photo_ouverture.text = "F5.6"
             photo_numero.text = "1"
             photo_objectif.text = NO_OBJECTIF
@@ -403,7 +403,9 @@ class PhotoDetailActivity : AppCompatActivity() {
             "1/15",
             "1/8",
             "1/4",
-            "1/2"
+            "1/2",
+            "2",
+            "4"
         )
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, spinnerList)
         spinner.adapter = arrayAdapter
@@ -437,13 +439,13 @@ class PhotoDetailActivity : AppCompatActivity() {
         attribute.text = "Mode"
         val spinnerList = arrayOf(
             "Automatique",
-            "Scène",
-            "Portrait",
-            "Paysage",
-            "Sport",
+            "Scène Portrait",
+            "Scène Paysage",
+            "Scène Sport",
             "Priorité ouverture",
             "Priorité vitesse",
-            "Manuel"
+            "Manuel",
+            "Programme"
         )
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, spinnerList)
         spinner.adapter = arrayAdapter
@@ -475,16 +477,18 @@ class PhotoDetailActivity : AppCompatActivity() {
         val attribute = dialogView.findViewById<TextView>(R.id.update_photo_dialog_attribute)
         attribute.text = "Ouverture"
         val spinnerList = arrayOf(
-            "F32",
             "F22",
             "F16",
             "F11",
             "F8",
+            "F7.1",
             "F5.6",
             "F4",
             "F2.8",
             "F2",
-            "F1.4"
+            "F1.8",
+            "F1.4",
+            "F1.2"
         )
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, spinnerList)
         spinner.adapter = arrayAdapter

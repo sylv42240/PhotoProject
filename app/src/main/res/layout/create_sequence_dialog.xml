@@ -20,14 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/grp_sequence_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/groupe_name_hint"
-        android:inputType="textEmailAddress"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
 
     <TextView
         android:id="@+id/textView4"
@@ -36,7 +29,7 @@
         android:layout_marginTop="@dimen/margin8"
         android:text="Appareil : "
         android:textSize="@dimen/textTitle"
-        app:layout_constraintStart_toStartOf="@+id/grp_sequence_name"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appareil_name" />
 
     <Spinner
@@ -54,7 +47,7 @@
         android:hint="@string/add_appareil_hint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/grp_sequence_name" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/btn_cancel"

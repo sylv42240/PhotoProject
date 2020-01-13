@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
 import fr.peaky.photographieproject.R
@@ -39,10 +40,11 @@ class SequenceDetailActivity : AppCompatActivity() {
         sequence_detail_name.text = sequence.name
         val view: View = findViewById(android.R.id.content)
         sequenceId = sequence.id
+        adapter.listener = this::deletePhotoToFirestore
         getDatabaseInfos(view, sequence.id)
         researchFabMenuBar4.setOnClickListener {
             val intent = Intent(it.context, PhotoDetailActivity::class.java)
-            intent.putExtra(PHOTO_EXTRA_KEY, Photo(sequenceId = sequence.id, imagePath = DEFAULT_IMAGE_PATH, time = System.currentTimeMillis().toString()))
+            intent.putExtra(PHOTO_EXTRA_KEY, Photo(sequenceId = sequence.id, imagePath = DEFAULT_IMAGE_PATH, time = System.currentTimeMillis().toString(), numberPhoto = photoList.size + 1))
             intent.putExtra(PHOTO_STATE_EXTRA_KEY, CREATION_MODE)
             it.context.startActivity(intent)
         }
@@ -112,4 +114,24 @@ class SequenceDetailActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun deletePhotoToFirestore(photo: Photo) {
+        db.collection(PHOTO_VALUE)
+            .document(photo.id)
+            .delete()
+            .addOnSuccessListener {
+                Toast.makeText(this, "Supprimée avec succès", Toast.LENGTH_LONG).show()
+                photoList.remove(photo)
+                adapter.updatePhotoList(photoList)
+                adapter.notifyDataSetChanged()
+                if (photoList.isEmpty()) {
+                    updateBackground()
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Le document n'a pas pu être supprimé", Toast.LENGTH_LONG)
+                    .show()
+            }
+    }
+
 }

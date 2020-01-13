@@ -21,9 +21,9 @@ const val PHOTO_STATE_EXTRA_KEY = "photo_state_extra_key"
 const val MODIFICATION_MODE = "modification"
 const val CREATION_MODE = "creation"
 
-class PhotoAdapter() : RecyclerView.Adapter<PhotoViewHolder>() {
+class PhotoAdapter : RecyclerView.Adapter<PhotoViewHolder>() {
 
-    //lateinit var listener: (Photo) -> Unit
+    lateinit var listener: (Photo) -> Unit
     private var photos = emptyList<Photo>()
 
     override fun getItemCount(): Int {
@@ -36,7 +36,7 @@ class PhotoAdapter() : RecyclerView.Adapter<PhotoViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
         val inflatedView: View = parent.inflate(R.layout.photo_item_holder, false)
-        return PhotoViewHolder(inflatedView/*, listener*/)
+        return PhotoViewHolder(inflatedView, listener)
     }
 
     fun updatePhotoList(photos: List<Photo>) {
@@ -46,7 +46,7 @@ class PhotoAdapter() : RecyclerView.Adapter<PhotoViewHolder>() {
 
 }
 
-class PhotoViewHolder(view: View/*, listener: (Photo) -> Unit*/) : RecyclerView.ViewHolder(view) {
+class PhotoViewHolder(view: View, listener: (Photo) -> Unit) : RecyclerView.ViewHolder(view) {
 
     private val rootView = view
     private var photo: Photo? = null
@@ -58,10 +58,10 @@ class PhotoViewHolder(view: View/*, listener: (Photo) -> Unit*/) : RecyclerView.
             intent.putExtra(PHOTO_STATE_EXTRA_KEY, MODIFICATION_MODE)
             it.context.startActivity(intent)
         }
-        /*rootView.setOnLongClickListener{
+        rootView.setOnLongClickListener{
             photo?.let { it1 -> listener(it1) }
             return@setOnLongClickListener true
-        }*/
+        }
     }
 
     fun bindPellicule(photo: Photo) {

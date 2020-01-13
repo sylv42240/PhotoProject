@@ -125,8 +125,7 @@ class PelliculeListActivity : AppCompatActivity() {
             "ISO 400",
             "ISO 800",
             "ISO 1 600",
-            "ISO 12 800",
-            "ISO 25 600"
+            "ISO 3 200"
         )
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, spinnerList)
         val editText = dialogView.findViewById<EditText>(R.id.pellicule_name)

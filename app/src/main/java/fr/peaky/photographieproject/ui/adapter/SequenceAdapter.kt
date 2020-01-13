@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import fr.peaky.photographieproject.R
 import fr.peaky.photographieproject.data.model.Sequence
+import fr.peaky.photographieproject.ui.activity.PelliculeDetailActivity
 import fr.peaky.photographieproject.ui.activity.SequenceDetailActivity
-import fr.peaky.photographieproject.ui.activity.SequenceListActivity
 import fr.peaky.photographieproject.ui.component.inflate
 import kotlinx.android.synthetic.main.sequence_item_holder.view.*
 
@@ -62,19 +62,19 @@ class SequenceViewHolder(view: View, listener: (Sequence) -> Unit) : RecyclerVie
     }
 }
 
-class CustomSequenceScrollListener(sequenceListActivity: SequenceListActivity) :
+class CustomSequenceScrollListener(pelliculeDetailActivity: PelliculeDetailActivity) :
     RecyclerView.OnScrollListener() {
 
-    private val sequenceListActivity = sequenceListActivity
+    private val pelliculeDetailActivity = pelliculeDetailActivity
 
     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
     }
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         when {
-            dy > 0 -> sequenceListActivity.notifySequenceListMovingScroll(1)
-            dy < 0 -> sequenceListActivity.notifySequenceListMovingScroll(2)
-            else -> sequenceListActivity.notifySequenceListMovingScroll(0)
+            dy > 0 -> pelliculeDetailActivity.notifyPelliculeDetailMovingScroll(1)
+            dy < 0 -> pelliculeDetailActivity.notifyPelliculeDetailMovingScroll(2)
+            else -> pelliculeDetailActivity.notifyPelliculeDetailMovingScroll(0)
         }
     }
 }
