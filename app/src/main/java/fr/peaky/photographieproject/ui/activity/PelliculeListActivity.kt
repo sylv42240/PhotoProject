@@ -23,7 +23,7 @@ import fr.peaky.photographieproject.data.extension.hide
 import fr.peaky.photographieproject.data.extension.isOnline
 import fr.peaky.photographieproject.data.extension.show
 import fr.peaky.photographieproject.data.model.Pellicule
-import fr.peaky.photographieproject.ui.adapter.CustomScrollListener
+import fr.peaky.photographieproject.ui.adapter.CustomPelliculeScrollListener
 import fr.peaky.photographieproject.ui.adapter.PelliculeAdapter
 import fr.peaky.photographieproject.ui.component.ErrorDisplayComponent
 import fr.peaky.photographieproject.ui.component.ErrorTranslator
@@ -45,6 +45,7 @@ class PelliculeListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_pellicule_list)
         alertDialog = Dialog(this)
+        adapter.listener = this::deletePelliculeToFirestore
         val view: View = findViewById(android.R.id.content)
         getDatabaseInfos(view)
         researchFabMenuBar.setOnClickListener {
@@ -62,7 +63,9 @@ class PelliculeListActivity : AppCompatActivity() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         task.result?.map { document ->
-                            val pellicule = document.toObject(Pellicule::class.java)
+                            val pellicule = document.toObject(Pellicule::class.java).apply {
+                                this.id = document.id
+                            }
                             pelliculeList.add(pellicule)
                         }
                         if (pelliculeList.isEmpty()) {
@@ -87,15 +90,18 @@ class PelliculeListActivity : AppCompatActivity() {
     }
 
     private fun updateRecyclerView(pelliculeList: MutableList<Pellicule>) {
+        pelliculeList.sortBy {
+            it.name.capitalize()
+        }
         adapter.updatePelliculeList(pelliculeList)
         pellicule_recycler_view.adapter = adapter
-        pellicule_recycler_view.addOnScrollListener(CustomScrollListener(this))
+        pellicule_recycler_view.addOnScrollListener(CustomPelliculeScrollListener(this))
         pellicule_recycler_view.layoutManager = LinearLayoutManager(this)
         empty_pellicule_layout.hide()
         pellicule_list_progress_bar.hide()
     }
 
-    fun notifyMovingScroll(responseCode: Int) {
+    fun notifyPelliculeListMovingScroll(responseCode: Int) {
         when (responseCode) {
             1 -> {
                 myBottomAppBar.performHide()
@@ -175,13 +181,19 @@ class PelliculeListActivity : AppCompatActivity() {
                 val pelliculeAdded = Pellicule(it.id, userId.toString(), name, iso)
                 if (noElement) {
                     pelliculeList.add(pelliculeAdded)
+                    pelliculeList.sortBy {pellicule ->
+                        pellicule.name.capitalize()
+                    }
                     adapter.updatePelliculeList(pelliculeList)
                     pellicule_recycler_view.adapter = adapter
-                    pellicule_recycler_view.addOnScrollListener(CustomScrollListener(this))
+                    pellicule_recycler_view.addOnScrollListener(CustomPelliculeScrollListener(this))
                     pellicule_recycler_view.layoutManager = LinearLayoutManager(this)
                     empty_pellicule_layout.hide()
                 } else {
                     pelliculeList.add(pelliculeAdded)
+                    pelliculeList.sortBy {pellicule ->
+                        pellicule.name.capitalize()
+                    }
                     adapter.updatePelliculeList(pelliculeList)
                     adapter.notifyDataSetChanged()
                 }
@@ -191,6 +203,25 @@ class PelliculeListActivity : AppCompatActivity() {
                     .show()
             }
         return true
+    }
+
+    private fun deletePelliculeToFirestore(pellicule: Pellicule) {
+
+        db.collection(PELLICULE_VALUE)
+            .document(pellicule.id)
+            .delete()
+            .addOnSuccessListener {
+                Toast.makeText(this, "Supprimé avec succès", Toast.LENGTH_LONG).show()
+                pelliculeList.remove(pellicule)
+                adapter.updatePelliculeList(pelliculeList)
+                adapter.notifyDataSetChanged()
+                if (pelliculeList.isEmpty()){
+                    updateBackground()
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Le document n'a pas pu être supprimé", Toast.LENGTH_LONG).show()
+            }
     }
 
 }

@@ -34,12 +34,16 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
     implementation 'com.google.firebase:firebase-database:19.2.0'
     implementation 'com.google.firebase:firebase-firestore:21.3.1'
+    implementation 'com.google.firebase:firebase-storage:19.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation "android.arch.lifecycle:extensions:1.1.1"
+    implementation 'com.master.android:glideimageview:1.0'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
     implementation('io.reactivex.rxjava2:rxkotlin:2.2.0') {
         exclude group: 'io.reactivex.rxjava2', module: 'rxjava'
         exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'

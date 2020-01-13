@@ -4,9 +4,7 @@ import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import fr.peaky.photographieproject.R.*
-import fr.peaky.photographieproject.data.extension.hide
-import fr.peaky.photographieproject.data.extension.show
+import fr.peaky.photographieproject.R
 import fr.peaky.photographieproject.data.model.Pellicule
 import fr.peaky.photographieproject.ui.activity.PelliculeDetailActivity
 import fr.peaky.photographieproject.ui.activity.PelliculeListActivity
@@ -15,7 +13,11 @@ import kotlinx.android.synthetic.main.pellicule_item_holder.view.*
 import android.animation.ObjectAnimator
 import android.view.animation.OvershootInterpolator
 
+const val PELLICULE_EXTRA_KEY = "pellicule_extra_key"
+
 class PelliculeAdapter : RecyclerView.Adapter<PelliculeViewHolder>() {
+
+    lateinit var listener: (Pellicule) -> Unit
 
     var pellicules = emptyList<Pellicule>()
     private var startOffset = 0
@@ -62,10 +64,8 @@ class PelliculeAdapter : RecyclerView.Adapter<PelliculeViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PelliculeViewHolder {
-        val inflatedView: View = parent.inflate(layout.pellicule_item_holder, false)
-//        animateRecyclerView(inflatedView)
-
-        return PelliculeViewHolder(inflatedView)
+        val inflatedView: View = parent.inflate(R.layout.pellicule_item_holder, false)
+        return PelliculeViewHolder(inflatedView, listener)
     }
 
     fun updatePelliculeList(pellicules: List<Pellicule>) {
@@ -75,32 +75,27 @@ class PelliculeAdapter : RecyclerView.Adapter<PelliculeViewHolder>() {
 
 }
 
-class PelliculeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class PelliculeViewHolder(view: View, listener: (Pellicule) -> Unit) : RecyclerView.ViewHolder(view) {
 
     private val rootView = view
     private var pellicule: Pellicule? = null
 
     init {
         rootView.setOnClickListener {
-            rootView.clickOnPelliculeInfo.show()
+            val intent = Intent(it.context, PelliculeDetailActivity::class.java)
+            intent.putExtra(PELLICULE_EXTRA_KEY, pellicule)
+            it.context.startActivity(intent)
         }
-        rootView.clickOnPelliculeInfo.modify.setOnClickListener{
-            navigateToPelliculeDetailActivity(it)
+        rootView.setOnLongClickListener {
+            pellicule?.let { pelliculeItem -> listener(pelliculeItem) }
+            return@setOnLongClickListener true
         }
-
     }
 
     fun bindPellicule(pellicule: Pellicule) {
         this.pellicule = pellicule
-        rootView.clickOnPelliculeInfo.hide()
         rootView.pellicule_name.text = pellicule.name
         rootView.iso_label.text = pellicule.iso
-    }
-
-    private fun navigateToPelliculeDetailActivity(it: View){
-        val intent = Intent(it.context, PelliculeDetailActivity::class.java)
-        intent.putExtra(PELLICULE_EXTRA_KEY, pellicule)
-        it.context.startActivity(intent)
     }
 
     companion object {
@@ -108,7 +103,7 @@ class PelliculeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 }
 
-class CustomScrollListener(pelliculeListActivity: PelliculeListActivity) :
+class CustomPelliculeScrollListener(pelliculeListActivity: PelliculeListActivity) :
     RecyclerView.OnScrollListener() {
 
     private val pelliculeListActivity = pelliculeListActivity
@@ -118,9 +113,9 @@ class CustomScrollListener(pelliculeListActivity: PelliculeListActivity) :
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         when {
-            dy > 0 -> pelliculeListActivity.notifyMovingScroll(1)
-            dy < 0 -> pelliculeListActivity.notifyMovingScroll(2)
-            else -> pelliculeListActivity.notifyMovingScroll(0)
+            dy > 0 -> pelliculeListActivity.notifyPelliculeListMovingScroll(1)
+            dy < 0 -> pelliculeListActivity.notifyPelliculeListMovingScroll(2)
+            else -> pelliculeListActivity.notifyPelliculeListMovingScroll(0)
         }
     }
 }
