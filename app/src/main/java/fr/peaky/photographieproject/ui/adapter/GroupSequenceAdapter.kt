@@ -58,6 +58,7 @@ class GroupeSequenceViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun bindPellicule(groupeSequence: GroupeSequence) {
         this.groupeSequence = groupeSequence
+        rootView.
         rootView.groupeSequenceName.text = groupeSequence.name
     }
 

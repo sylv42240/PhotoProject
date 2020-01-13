@@ -10,4 +10,5 @@
     <color name="errorColor">#B00020</color>
     <color name="textColor">#FFFFFF</color>
     <color name="empty_list">#52000000</color>
+    <color name="cancelButtonColor">#AAAAAA</color>
 </resources>
