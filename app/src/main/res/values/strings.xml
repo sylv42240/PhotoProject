@@ -15,4 +15,15 @@
     <string name="creer">Créer</string>
     <string name="add_pellicule_title">Créer une pellicule</string>
     <string name="add_pellicule_name">Nom de la pellicule</string>
+    <string name="nouveau_groupe">Créer un nouveau groupe</string>
+    <string name="add_groupe_title">Créer un groupe</string>
+    <string name="groupe_name_hint">Nom du groupe</string>
+    <string name="add_appareil_hint">Ajouter un appareil</string>
+    <string name="aucune_sequence">Aucune séquence trouvée</string>
+    <string name="nouvelle_sequence">Créer une nouvelle séquence</string>
+    <string name="aucune_photo">Aucune photo trouvée</string>
+    <string name="nouvelle_photo">Prendre une nouvelle photo</string>
+    <string name="enregistrer_photo">Enregistrer ma photo</string>
+    <string name="no_objectif">Aucun objectif</string>
+    <string name="modifier">Modifier</string>
 </resources>
