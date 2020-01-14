@@ -2,14 +2,11 @@ package fr.peaky.photographieproject.ui.activity
 
 import android.app.Activity
 import android.app.Dialog
-import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.os.StrictMode
 import android.provider.MediaStore
-import android.provider.MediaStore.Images
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,9 +75,9 @@ class PhotoDetailActivity : AppCompatActivity() {
                 photo_exposition.text = photo.exposition
                 photo_mode.text = photo.mode
             } else {
-                photo_ouverture.text = "F5.6"
-                photo_exposition.text = "1/125"
-                photo_mode.text = "Scène Portrait"
+                photo_ouverture.text = getString(R.string.default_ouverture)
+                photo_exposition.text = getString(R.string.default_exposition)
+                photo_mode.text = getString(R.string.default_mode)
             }
             photo_numero.text = photo.numberPhoto.toString()
             photo_numero.setTextColor(setNumberColor(photo.numberPhoto, photo.poses))
@@ -121,13 +118,13 @@ class PhotoDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun setNumberColor(number: Int, poses: Int) : Int  {
-        return if (number>=poses){
+    private fun setNumberColor(number: Int, poses: Int): Int {
+        return if (number >= poses) {
             ContextCompat.getColor(this, R.color.poses_warning_red)
-        }else{
-            if (number >= poses * 3/4){
+        } else {
+            if (number >= poses * 3 / 4) {
                 ContextCompat.getColor(this, R.color.poses_warning_orange)
-            }else{
+            } else {
                 ContextCompat.getColor(this, R.color.poses_warning_green)
             }
         }
@@ -146,14 +143,20 @@ class PhotoDetailActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CAMERA_CODE && resultCode == Activity.RESULT_OK) {
+            photo_detail_progress_bar_text.show()
             photo_detail_progress_bar.show()
             val ref = mStorageRef.child("images/" + System.currentTimeMillis())
             val uploadTask = ref.putFile(fileUri)
-            uploadTask.addOnFailureListener {
+            uploadTask.addOnProgressListener {
+                val progress = (100.0 * it.bytesTransferred / it.totalByteCount)
+                photo_detail_progress_bar.progress =  progress.toInt()
+            }.addOnFailureListener {
                 Toast.makeText(this, "Téléchargement échoué", Toast.LENGTH_SHORT).show()
+                photo_detail_progress_bar_text.hide()
                 photo_detail_progress_bar.hide()
             }.addOnSuccessListener {
                 Toast.makeText(this, "Image téléchargée avec succès", Toast.LENGTH_SHORT).show()
+                photo_detail_progress_bar_text.hide()
                 photo_detail_progress_bar.hide()
             }.continueWithTask { task ->
                 if (!task.isSuccessful) {
@@ -337,7 +340,12 @@ class PhotoDetailActivity : AppCompatActivity() {
                             photo_mode.text = photo.mode
                             photo_ouverture.text = photo.ouverture
                             photo_numero.text = photo.numberPhoto.toString()
-                            photo_numero.setTextColor(setNumberColor(photo.numberPhoto, photo.poses))
+                            photo_numero.setTextColor(
+                                setNumberColor(
+                                    photo.numberPhoto,
+                                    photo.poses
+                                )
+                            )
                             photo_description.setText(photo.description)
                             Glide.with(this).load(photo.imagePath)
                                 .diskCacheStrategy(DiskCacheStrategy.ALL)

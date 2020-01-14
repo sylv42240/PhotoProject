@@ -103,7 +103,7 @@ class PelliculeDetailActivity : AppCompatActivity() {
         sequenceList.sortBy {
             it.name.capitalize()
         }
-        adapter.updateGroupeSequenceList(sequenceList)
+        adapter.updateSequenceList(sequenceList)
         grp_recycler_view.adapter = adapter
         grp_recycler_view.addOnScrollListener(CustomSequenceScrollListener(this))
         grp_recycler_view.layoutManager = LinearLayoutManager(this)
@@ -144,7 +144,7 @@ class PelliculeDetailActivity : AppCompatActivity() {
                             appareilList.add(appareil)
                             appareilNameList.add(appareil.name)
                         }
-                        showAddGroupeSequenceDialog()
+                        showAddSequenceDialog()
                     } else {
                         errorDisplayComponent.displayError(FirestoreException(), view)
                     }
@@ -155,7 +155,7 @@ class PelliculeDetailActivity : AppCompatActivity() {
     }
 
 
-    private fun showAddGroupeSequenceDialog() {
+    private fun showAddSequenceDialog() {
         val viewGroup = findViewById<ViewGroup>(android.R.id.content)
         val dialogView =
             LayoutInflater.from(this).inflate(R.layout.create_sequence_dialog, viewGroup, false)
@@ -214,7 +214,7 @@ class PelliculeDetailActivity : AppCompatActivity() {
         }
 
         if (appareilSpinner != NO_APPAREIL){
-            addGroupeSequenceToFirestore(appareilList[appareilIndex].id, pelliculeCreated)
+            addSequenceToFirestore(appareilList[appareilIndex].id, pelliculeCreated)
         }else{
             addAppareilToFirestore(appareilEditText, userId)
         }
@@ -223,7 +223,7 @@ class PelliculeDetailActivity : AppCompatActivity() {
         return true
     }
 
-    private fun addGroupeSequenceToFirestore(appareilId:String, pellicule: Pellicule){
+    private fun addSequenceToFirestore(appareilId:String, pellicule: Pellicule){
 
 
 
@@ -257,7 +257,7 @@ class PelliculeDetailActivity : AppCompatActivity() {
                     sequenceList.sortBy { sequence1 ->
                         sequence1.name.capitalize()
                     }
-                    adapter.updateGroupeSequenceList(sequenceList)
+                    adapter.updateSequenceList(sequenceList)
                     grp_recycler_view.adapter = adapter
                     grp_recycler_view.addOnScrollListener(
                         CustomSequenceScrollListener(
@@ -268,10 +268,10 @@ class PelliculeDetailActivity : AppCompatActivity() {
                     empty_grp_layout.hide()
                 } else {
                     sequenceList.add(sequenceAdded)
-                    sequenceList.sortBy { groupeSequence1 ->
-                        groupeSequence1.name.capitalize()
+                    sequenceList.sortBy { sequence1 ->
+                        sequence1.name.capitalize()
                     }
-                    adapter.updateGroupeSequenceList(sequenceList)
+                    adapter.updateSequenceList(sequenceList)
                     adapter.notifyDataSetChanged()
                 }
             }
@@ -291,7 +291,7 @@ class PelliculeDetailActivity : AppCompatActivity() {
             .add(appareil)
             .addOnSuccessListener {
                 val appareilAdded = Appareil(it.id, userId, name)
-                addGroupeSequenceToFirestore(appareilAdded.id, pelliculeCreated)
+                addSequenceToFirestore(appareilAdded.id, pelliculeCreated)
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Le document n'a pas pu être enregistré", Toast.LENGTH_LONG)
@@ -306,7 +306,7 @@ class PelliculeDetailActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 Toast.makeText(this, "Supprimée avec succès", Toast.LENGTH_LONG).show()
                 sequenceList.remove(sequence)
-                adapter.updateGroupeSequenceList(sequenceList)
+                adapter.updateSequenceList(sequenceList)
                 adapter.notifyDataSetChanged()
                 if (sequenceList.isEmpty()) {
                     updateBackground()

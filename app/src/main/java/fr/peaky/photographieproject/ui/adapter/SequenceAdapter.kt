@@ -33,7 +33,7 @@ class SequenceAdapter : RecyclerView.Adapter<SequenceViewHolder>() {
         return SequenceViewHolder(inflatedView, listener)
     }
 
-    fun updateGroupeSequenceList(sequence: List<Sequence>) {
+    fun updateSequenceList(sequence: List<Sequence>) {
         this.sequences = sequence
         notifyDataSetChanged()
     }
