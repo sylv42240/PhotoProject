@@ -54,13 +54,15 @@ class SequenceDetailActivity : AppCompatActivity() {
                         objectifId = photoList.last().objectifId,
                         mode = photoList.last().mode,
                         exposition = photoList.last().exposition,
-                        ouverture = photoList.last().ouverture))
+                        ouverture = photoList.last().ouverture,
+                        poses = sequence.poses))
             }else{
                 intent.putExtra(PHOTO_EXTRA_KEY,
                     Photo(sequenceId = sequence.id,
                         imagePath = DEFAULT_IMAGE_PATH,
                         time = System.currentTimeMillis().toString(),
-                        numberPhoto = 1
+                        numberPhoto = 1,
+                        poses = sequence.poses
                 ))
             }
 

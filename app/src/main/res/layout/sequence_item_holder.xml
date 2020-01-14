@@ -3,7 +3,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="@dimen/margin8"
     android:layout_marginStart="@dimen/margin16"
@@ -27,11 +27,24 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/textTitle"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/sequence_time"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Pellicule 1" />
+
+        <TextView
+            android:id="@+id/sequence_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/contentText"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/margin8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sequence_name"
+            tools:text="Le 20/05/20 à 15:40" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.auth.FirebaseAuth
@@ -82,6 +83,7 @@ class PhotoDetailActivity : AppCompatActivity() {
                 photo_mode.text = "Scène Portrait"
             }
             photo_numero.text = photo.numberPhoto.toString()
+            photo_numero.setTextColor(setNumberColor(photo.numberPhoto, photo.poses))
             photo_objectif.text = NO_OBJECTIF
             Glide.with(this).load(photo.imagePath)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -116,6 +118,18 @@ class PhotoDetailActivity : AppCompatActivity() {
 
         objectif_layout.setOnClickListener {
             getObjectifListFromDatabase()
+        }
+    }
+
+    private fun setNumberColor(number: Int, poses: Int) : Int  {
+        return if (number>=poses){
+            ContextCompat.getColor(this, R.color.poses_warning_red)
+        }else{
+            if (number >= poses * 3/4){
+                ContextCompat.getColor(this, R.color.poses_warning_orange)
+            }else{
+                ContextCompat.getColor(this, R.color.poses_warning_green)
+            }
         }
     }
 
@@ -171,6 +185,7 @@ class PhotoDetailActivity : AppCompatActivity() {
         photoToAdd["sequenceId"] = photo.sequenceId
         photoToAdd["time"] = photo.time
         photoToAdd["ouverture"] = photo_ouverture.text.toString()
+        photoToAdd["poses"] = photo.poses
 
 
         db.collection(PHOTO_VALUE)
@@ -322,6 +337,7 @@ class PhotoDetailActivity : AppCompatActivity() {
                             photo_mode.text = photo.mode
                             photo_ouverture.text = photo.ouverture
                             photo_numero.text = photo.numberPhoto.toString()
+                            photo_numero.setTextColor(setNumberColor(photo.numberPhoto, photo.poses))
                             photo_description.setText(photo.description)
                             Glide.with(this).load(photo.imagePath)
                                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -347,6 +363,7 @@ class PhotoDetailActivity : AppCompatActivity() {
             photo_mode.text = photo.mode
             photo_ouverture.text = photo.ouverture
             photo_numero.text = photo.numberPhoto.toString()
+            photo_numero.setTextColor(setNumberColor(photo.numberPhoto, photo.poses))
             photo_description.setText(photo.description)
             Glide.with(this).load(photo.imagePath)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -548,6 +565,7 @@ class PhotoDetailActivity : AppCompatActivity() {
         editText.setText(photo_numero.text.toString())
         buttonValidate.setOnClickListener {
             photo_numero.text = editText.text.toString()
+            photo_numero.setTextColor(setNumberColor(editText.text.toString().toInt(), photo.poses))
             alertDialog.dismiss()
         }
         buttonCancel.setOnClickListener {

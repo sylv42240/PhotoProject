@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import fr.peaky.photographieproject.R
+import fr.peaky.photographieproject.data.extension.convertTimeToDate
 import fr.peaky.photographieproject.data.model.Sequence
 import fr.peaky.photographieproject.ui.activity.PelliculeDetailActivity
 import fr.peaky.photographieproject.ui.activity.SequenceDetailActivity
@@ -59,6 +60,7 @@ class SequenceViewHolder(view: View, listener: (Sequence) -> Unit) : RecyclerVie
     fun bindPellicule(sequence: Sequence) {
         this.sequence = sequence
         rootView.sequence_name.text = sequence.name
+        rootView.sequence_time.text = convertTimeToDate(sequence.time)
     }
 }
 

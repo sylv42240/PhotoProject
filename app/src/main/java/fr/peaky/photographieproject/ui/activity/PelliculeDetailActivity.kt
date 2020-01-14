@@ -240,6 +240,7 @@ class PelliculeDetailActivity : AppCompatActivity() {
 
         println(pellicule.poses.toString())
 
+        sequence["time"] = System.currentTimeMillis().toString()
         sequence["poses"] = pellicule.poses
         sequence["name"] = name
         sequence["appareilId"] = appareilId
@@ -250,7 +251,7 @@ class PelliculeDetailActivity : AppCompatActivity() {
             .add(sequence)
             .addOnSuccessListener {
                 Toast.makeText(this, "Ajoutée avec succès", Toast.LENGTH_LONG).show()
-                val sequenceAdded = Sequence(it.id,pelliculeId, name, appareilId, pellicule.poses)
+                val sequenceAdded = Sequence(it.id,pelliculeId, name, appareilId, pellicule.poses, System.currentTimeMillis().toString())
                 if (noElement) {
                     sequenceList.add(sequenceAdded)
                     sequenceList.sortBy { sequence1 ->
