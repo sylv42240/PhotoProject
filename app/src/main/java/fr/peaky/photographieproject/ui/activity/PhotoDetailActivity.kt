@@ -72,10 +72,16 @@ class PhotoDetailActivity : AppCompatActivity() {
         val photoState = intent.getStringExtra(PHOTO_STATE_EXTRA_KEY)
         val view: View = findViewById(android.R.id.content)
         if (photoState == CREATION_MODE) {
-            photo_exposition.text = "1/125"
-            photo_mode.text = "Scène Portrait"
-            photo_ouverture.text = "F5.6"
-            photo_numero.text = "1"
+            if (photo.ouverture != "") {
+                photo_ouverture.text = photo.ouverture
+                photo_exposition.text = photo.exposition
+                photo_mode.text = photo.mode
+            } else {
+                photo_ouverture.text = "F5.6"
+                photo_exposition.text = "1/125"
+                photo_mode.text = "Scène Portrait"
+            }
+            photo_numero.text = photo.numberPhoto.toString()
             photo_objectif.text = NO_OBJECTIF
             Glide.with(this).load(photo.imagePath)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -93,7 +99,7 @@ class PhotoDetailActivity : AppCompatActivity() {
         }
 
         image_layout.setOnClickListener {
-            showCameraInterface()
+            showUpdatePhotoDialog()
         }
 
         mode_layout.setOnClickListener {
@@ -125,7 +131,7 @@ class PhotoDetailActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == CAMERA_CODE && resultCode == Activity.RESULT_OK){
+        if (requestCode == CAMERA_CODE && resultCode == Activity.RESULT_OK) {
             photo_detail_progress_bar.show()
             val ref = mStorageRef.child("images/" + System.currentTimeMillis())
             val uploadTask = ref.putFile(fileUri)
@@ -145,13 +151,13 @@ class PhotoDetailActivity : AppCompatActivity() {
             }.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val downloadUri = task.result
-                    Glide.with(this).load(downloadUri).diskCacheStrategy(DiskCacheStrategy.ALL).into(photo_image)
+                    Glide.with(this).load(downloadUri).diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(photo_image)
                     photoImagePath = downloadUri.toString()
                 }
             }
         }
     }
-
 
 
     private fun addPhotoToFirestore(photo: Photo) {
@@ -221,7 +227,7 @@ class PhotoDetailActivity : AppCompatActivity() {
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, spinnerList)
         val editTextObjectif = dialogView.findViewById<EditText>(R.id.add_photo_dialog_edit)
         spinner.adapter = arrayAdapter
-        if (photo_objectif.text.toString()!= NO_OBJECTIF){
+        if (photo_objectif.text.toString() != NO_OBJECTIF) {
             spinner.setSelection(arrayAdapter.getPosition(photo_objectif.text.toString()))
         }
 
@@ -452,6 +458,29 @@ class PhotoDetailActivity : AppCompatActivity() {
         spinner.setSelection(arrayAdapter.getPosition(photo_mode.text.toString()))
         buttonValidate.setOnClickListener {
             photo_mode.text = spinner.selectedItem.toString()
+            alertDialog.dismiss()
+        }
+        buttonCancel.setOnClickListener {
+            alertDialog.dismiss()
+        }
+        val builder = AlertDialog.Builder(this)
+        builder.setView(dialogView)
+        alertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.setCanceledOnTouchOutside(false)
+        alertDialog.show()
+    }
+
+    private fun showUpdatePhotoDialog() {
+        val viewGroup = findViewById<ViewGroup>(android.R.id.content)
+        val dialogView =
+            LayoutInflater.from(this).inflate(R.layout.take_photo_dialog, viewGroup, false)
+        val buttonValidate = dialogView.findViewById<Button>(R.id.take_photo_dialog_validate)
+        val buttonCancel = dialogView.findViewById<Button>(R.id.take_photo_dialog_cancel)
+        val image = dialogView.findViewById<ImageView>(R.id.take_photo_dialog_image)
+        Glide.with(this).load(photoImagePath).diskCacheStrategy(DiskCacheStrategy.ALL).into(image)
+        buttonValidate.setOnClickListener {
+            showCameraInterface()
             alertDialog.dismiss()
         }
         buttonCancel.setOnClickListener {

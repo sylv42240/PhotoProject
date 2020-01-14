@@ -43,11 +43,13 @@ class PelliculeDetailActivity : AppCompatActivity() {
     private val userId = FirebaseAuth.getInstance().currentUser?.uid
     private lateinit var pelliculeId: String
     private val appareilNameList = mutableListOf<String>()
+    var pelliculeCreated = Pellicule()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pellicule_detail)
         val pellicule: Pellicule = intent.getSerializableExtra(PELLICULE_EXTRA_KEY) as Pellicule
+        pelliculeCreated = pellicule
         pelliculeId = pellicule.id
         pellicule_detail_name.text = pellicule.name
         pellicule_detail_iso.text = pellicule.iso
@@ -212,7 +214,7 @@ class PelliculeDetailActivity : AppCompatActivity() {
         }
 
         if (appareilSpinner != NO_APPAREIL){
-            addGroupeSequenceToFirestore(appareilList[appareilIndex].id, pelliculeId)
+            addGroupeSequenceToFirestore(appareilList[appareilIndex].id, pelliculeCreated)
         }else{
             addAppareilToFirestore(appareilEditText, userId)
         }
@@ -221,11 +223,11 @@ class PelliculeDetailActivity : AppCompatActivity() {
         return true
     }
 
-    private fun addGroupeSequenceToFirestore(appareilId:String, pelliculeId:String){
+    private fun addGroupeSequenceToFirestore(appareilId:String, pellicule: Pellicule){
 
 
 
-        val sequence = HashMap<String, String>()
+        val sequence = HashMap<String, Any>()
         val numbers = mutableListOf<Int>()
         val name = if (sequenceList.isEmpty()){
             "Pellicule 1"
@@ -236,6 +238,9 @@ class PelliculeDetailActivity : AppCompatActivity() {
             "Pellicule " +(numbers.max()?.plus(1))
         }
 
+        println(pellicule.poses.toString())
+
+        sequence["poses"] = pellicule.poses
         sequence["name"] = name
         sequence["appareilId"] = appareilId
         sequence["pelliculeId"] = pelliculeId
@@ -245,7 +250,7 @@ class PelliculeDetailActivity : AppCompatActivity() {
             .add(sequence)
             .addOnSuccessListener {
                 Toast.makeText(this, "Ajoutée avec succès", Toast.LENGTH_LONG).show()
-                val sequenceAdded = Sequence(it.id,pelliculeId, name, appareilId)
+                val sequenceAdded = Sequence(it.id,pelliculeId, name, appareilId, pellicule.poses)
                 if (noElement) {
                     sequenceList.add(sequenceAdded)
                     sequenceList.sortBy { sequence1 ->
@@ -285,7 +290,7 @@ class PelliculeDetailActivity : AppCompatActivity() {
             .add(appareil)
             .addOnSuccessListener {
                 val appareilAdded = Appareil(it.id, userId, name)
-                addGroupeSequenceToFirestore(appareilAdded.id, pelliculeId)
+                addGroupeSequenceToFirestore(appareilAdded.id, pelliculeCreated)
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Le document n'a pas pu être enregistré", Toast.LENGTH_LONG)
