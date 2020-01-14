@@ -19,7 +19,7 @@ class PelliculeAdapter : RecyclerView.Adapter<PelliculeViewHolder>() {
 
     lateinit var listener: (Pellicule) -> Unit
 
-    var pellicules = emptyList<Pellicule>()
+    private var pellicules = emptyList<Pellicule>()
     private var startOffset = 0
 
     override fun getItemCount(): Int {
@@ -103,10 +103,8 @@ class PelliculeViewHolder(view: View, listener: (Pellicule) -> Unit) : RecyclerV
     }
 }
 
-class CustomPelliculeScrollListener(pelliculeListActivity: PelliculeListActivity) :
+class CustomPelliculeScrollListener(private val pelliculeListActivity: PelliculeListActivity) :
     RecyclerView.OnScrollListener() {
-
-    private val pelliculeListActivity = pelliculeListActivity
 
     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
     }

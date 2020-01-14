@@ -93,8 +93,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            app:blk_downscaleFactor="0.9"
-            app:blk_blurRadius="5"
+            app:blk_downscaleFactor="0.2"
+            app:blk_blurRadius="12"
             app:blk_fps="0">
 
             <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -107,7 +107,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    app:backgroundTint="@android:color/transparent"
+                    app:backgroundTint="@color/colorPrimary"
                     app:fabAlignmentMode="center" />
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
