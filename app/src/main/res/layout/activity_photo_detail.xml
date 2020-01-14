@@ -42,32 +42,32 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/mode_layout"
+            android:id="@+id/numero_layout"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/first_horizontal_line"
-            app:layout_constraintEnd_toStartOf="@+id/second_vertical_line"
-            app:layout_constraintStart_toEndOf="@+id/exposition_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/first_vertical_line"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin8"
+                android:text="N° pellicule"
                 android:textStyle="italic"
-                android:text="Mode choisi"
                 android:textAlignment="center"
                 android:textSize="18dp" />
 
             <TextView
-                android:id="@+id/photo_mode"
+                android:id="@+id/photo_numero"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:textSize="40dp"
                 android:textStyle="bold"
-                android:textSize="28dp"
-                tools:text="Portrait" />
+                tools:text="65" />
 
         </LinearLayout>
 
@@ -76,10 +76,10 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/first_horizontal_line"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/mode_layout"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/exposition_layout"
+            app:layout_constraintBottom_toTopOf="@+id/second_horizontal_line"
+            app:layout_constraintEnd_toStartOf="@+id/first_vertical_line"
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:layout_width="match_parent"
@@ -102,34 +102,36 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/numero_layout"
+            android:id="@+id/mode_layout"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/second_horizontal_line"
-            app:layout_constraintEnd_toStartOf="@+id/first_vertical_line"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/exposition_layout">
+            app:layout_constraintTop_toTopOf="@+id/first_horizontal_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/first_vertical_line">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin8"
-                android:text="N° pellicule"
                 android:textStyle="italic"
+                android:text="Mode choisi"
                 android:textAlignment="center"
                 android:textSize="18dp" />
 
             <TextView
-                android:id="@+id/photo_numero"
+                android:id="@+id/photo_mode"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:textSize="40dp"
                 android:textStyle="bold"
-                tools:text="65" />
+                android:textSize="28dp"
+                tools:text="Portrait" />
 
         </LinearLayout>
+
+
 
 
         <LinearLayout
@@ -137,10 +139,10 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/second_horizontal_line"
-            app:layout_constraintEnd_toStartOf="@+id/second_vertical_line"
-            app:layout_constraintStart_toEndOf="@+id/numero_layout"
-            app:layout_constraintTop_toBottomOf="@+id/exposition_layout">
+            app:layout_constraintBottom_toTopOf="@+id/third_horizontal_line"
+            app:layout_constraintEnd_toStartOf="@+id/first_vertical_line"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/second_horizontal_line">
 
             <ImageView
                 android:id="@+id/photo_image"
@@ -156,10 +158,10 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/second_horizontal_line"
+            app:layout_constraintBottom_toTopOf="@+id/third_horizontal_line"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/image_layout"
-            app:layout_constraintTop_toBottomOf="@+id/exposition_layout">
+            app:layout_constraintStart_toEndOf="@+id/first_vertical_line"
+            app:layout_constraintTop_toBottomOf="@+id/second_horizontal_line">
 
             <TextView
                 android:layout_width="match_parent"
@@ -195,28 +197,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.33" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/second_vertical_line"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.66" />
+            app:layout_constraintGuide_percent="0.50" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/first_horizontal_line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.20" />
+            app:layout_constraintGuide_percent="0.22" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/second_horizontal_line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.40" />
+            app:layout_constraintGuide_percent="0.44" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/third_horizontal_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.66" />
 
         <ProgressBar
             android:id="@+id/photo_detail_progress_bar"
