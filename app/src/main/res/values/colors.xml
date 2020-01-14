@@ -13,5 +13,5 @@
     <color name="poses_warning_green">#4CAF50</color>
     <color name="poses_warning_orange">#FF9800</color>
     <color name="poses_warning_red">#F44336</color>
-
+    <color name="cancelButtonColor">#AAAAAA</color>
 </resources>
