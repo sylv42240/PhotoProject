@@ -12,6 +12,9 @@ import fr.peaky.photographieproject.ui.component.inflate
 import kotlinx.android.synthetic.main.pellicule_item_holder.view.*
 import android.animation.ObjectAnimator
 import android.view.animation.OvershootInterpolator
+import fr.peaky.photographieproject.data.extension.convertTimeToDate
+import kotlinx.android.synthetic.main.pellicule_item_holder.view.photo_time_item
+import kotlinx.android.synthetic.main.photo_item_holder.view.*
 
 const val PELLICULE_EXTRA_KEY = "pellicule_extra_key"
 
@@ -96,6 +99,7 @@ class PelliculeViewHolder(view: View, listener: (Pellicule) -> Unit) : RecyclerV
         this.pellicule = pellicule
         rootView.pellicule_name.text = pellicule.name
         rootView.iso_label.text = pellicule.iso
+//        rootView.photo_time_item.text = convertTimeToDate(pellicule.time)
     }
 
     companion object {

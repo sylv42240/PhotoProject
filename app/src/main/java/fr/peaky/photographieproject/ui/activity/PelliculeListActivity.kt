@@ -127,13 +127,13 @@ class PelliculeListActivity : AppCompatActivity() {
         val isoSpinner = dialogView.findViewById<Spinner>(id.pellicule_iso_spinner)
         val posesSpinner = dialogView.findViewById<Spinner>(R.id.pellicule_poses_spinner)
         val isoSpinnerList = arrayOf(
-            "ISO 50",
-            "ISO 100",
-            "ISO 200",
-            "ISO 400",
-            "ISO 800",
-            "ISO 1 600",
-            "ISO 3 200"
+            "50",
+            "100",
+            "200",
+            "400",
+            "800",
+            "1 600",
+            "3 200"
         )
         val posesSpinnerList = arrayOf(
             "12",

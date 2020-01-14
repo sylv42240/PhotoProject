@@ -3,7 +3,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="130dp"
     android:layout_marginBottom="@dimen/margin8"
     android:maxHeight="200dp"
     card_view:cardCornerRadius="16dp"
@@ -61,10 +61,12 @@
                 tools:text="@string/iso" />
 
             <TextView
+                android:id="@+id/photo_time_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
+                android:visibility="gone"
                 android:text="datedesmes couilles sur un tatami"/>
 
         </RelativeLayout>
