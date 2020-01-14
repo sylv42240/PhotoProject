@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
 import fr.peaky.photographieproject.R
@@ -37,12 +38,34 @@ class SequenceDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sequence_detail)
         val sequence = intent.getSerializableExtra(SEQUENCE_EXTRA_KEY) as Sequence
         sequence_detail_name.text = sequence.name
+        sequence_detail_poses.text = sequence.poses.toString() + " poses"
         val view: View = findViewById(android.R.id.content)
         sequenceId = sequence.id
+        adapter.listener = this::deletePhotoToFirestore
         getDatabaseInfos(view, sequence.id)
         researchFabMenuBar4.setOnClickListener {
             val intent = Intent(it.context, PhotoDetailActivity::class.java)
-            intent.putExtra(PHOTO_EXTRA_KEY, Photo(sequenceId = sequence.id, imagePath = DEFAULT_IMAGE_PATH, time = System.currentTimeMillis().toString()))
+            if (photoList.isNotEmpty()){
+                intent.putExtra(PHOTO_EXTRA_KEY,
+                    Photo(sequenceId = sequence.id,
+                        imagePath = DEFAULT_IMAGE_PATH,
+                        time = System.currentTimeMillis().toString(),
+                        numberPhoto = photoList.last().numberPhoto + 1,
+                        objectifId = photoList.last().objectifId,
+                        mode = photoList.last().mode,
+                        exposition = photoList.last().exposition,
+                        ouverture = photoList.last().ouverture,
+                        poses = sequence.poses))
+            }else{
+                intent.putExtra(PHOTO_EXTRA_KEY,
+                    Photo(sequenceId = sequence.id,
+                        imagePath = DEFAULT_IMAGE_PATH,
+                        time = System.currentTimeMillis().toString(),
+                        numberPhoto = 1,
+                        poses = sequence.poses
+                ))
+            }
+
             intent.putExtra(PHOTO_STATE_EXTRA_KEY, CREATION_MODE)
             it.context.startActivity(intent)
         }
@@ -112,4 +135,24 @@ class SequenceDetailActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun deletePhotoToFirestore(photo: Photo) {
+        db.collection(PHOTO_VALUE)
+            .document(photo.id)
+            .delete()
+            .addOnSuccessListener {
+                Toast.makeText(this, "Supprimée avec succès", Toast.LENGTH_LONG).show()
+                photoList.remove(photo)
+                adapter.updatePhotoList(photoList)
+                adapter.notifyDataSetChanged()
+                if (photoList.isEmpty()) {
+                    updateBackground()
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Le document n'a pas pu être supprimé", Toast.LENGTH_LONG)
+                    .show()
+            }
+    }
+
 }

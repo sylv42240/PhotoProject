@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import fr.peaky.photographieproject.R
 import fr.peaky.photographieproject.R.id
 import fr.peaky.photographieproject.R.layout
 import fr.peaky.photographieproject.data.PELLICULE_VALUE
@@ -123,24 +124,32 @@ class PelliculeListActivity : AppCompatActivity() {
             LayoutInflater.from(this).inflate(layout.create_pellicule_dialog, viewGroup, false)
         val buttonValidate = dialogView.findViewById<Button>(id.btn_validate)
         val buttonCancel = dialogView.findViewById<Button>(id.btn_cancel)
-        val spinner = dialogView.findViewById<Spinner>(id.pellicule_iso_spinner)
-        val spinnerList = arrayOf(
+        val isoSpinner = dialogView.findViewById<Spinner>(id.pellicule_iso_spinner)
+        val posesSpinner = dialogView.findViewById<Spinner>(R.id.pellicule_poses_spinner)
+        val isoSpinnerList = arrayOf(
             "ISO 50",
             "ISO 100",
             "ISO 200",
             "ISO 400",
             "ISO 800",
             "ISO 1 600",
-            "ISO 12 800",
-            "ISO 25 600"
+            "ISO 3 200"
         )
-        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, spinnerList)
-        val editText = dialogView.findViewById<EditText>(id.pellicule_name)
-        spinner.adapter = arrayAdapter
+        val posesSpinnerList = arrayOf(
+            "12",
+            "24",
+            "36"
+        )
+        val isoArrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, isoSpinnerList)
+        val posesArrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, posesSpinnerList)
+        val editText = dialogView.findViewById<EditText>(R.id.pellicule_name)
+        isoSpinner.adapter = isoArrayAdapter
+        posesSpinner.adapter = posesArrayAdapter
         buttonValidate.setOnClickListener {
             if (addPelliculeToFirestore(
                     editText.text.toString(),
-                    spinner.selectedItem.toString()
+                    isoSpinner.selectedItem.toString(),
+                    posesSpinner.selectedItem.toString().toInt()
                 )
             ) {
                 alertDialog.dismiss()
@@ -158,7 +167,7 @@ class PelliculeListActivity : AppCompatActivity() {
         alertDialog.show()
     }
 
-    private fun addPelliculeToFirestore(name: String, iso: String): Boolean {
+    private fun addPelliculeToFirestore(name: String, iso: String, poses:Int): Boolean {
         if (name.length !in 5..40) {
             Toast.makeText(
                 this,
@@ -168,7 +177,8 @@ class PelliculeListActivity : AppCompatActivity() {
             return false
         }
 
-        val pellicule = HashMap<String, String>()
+        val pellicule = HashMap<String, Any>()
+        pellicule["poses"] = poses
         pellicule["name"] = name
         pellicule["iso"] = iso
         pellicule["userId"] = userId.toString()
@@ -178,7 +188,7 @@ class PelliculeListActivity : AppCompatActivity() {
             .add(pellicule)
             .addOnSuccessListener {
                 Toast.makeText(this, "Ajouté avec succès", Toast.LENGTH_LONG).show()
-                val pelliculeAdded = Pellicule(it.id, userId.toString(), name, iso)
+                val pelliculeAdded = Pellicule(it.id, userId.toString(), name, iso, poses)
                 if (noElement) {
                     pelliculeList.add(pelliculeAdded)
                     pelliculeList.sortBy {pellicule ->
