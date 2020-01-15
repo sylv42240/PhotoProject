@@ -182,6 +182,7 @@ class PelliculeDetailActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
         alertDialog = builder.create()
+        alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         alertDialog.setCancelable(false)
         alertDialog.setCanceledOnTouchOutside(false)
         alertDialog.show()
