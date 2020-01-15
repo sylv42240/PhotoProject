@@ -28,23 +28,23 @@
             android:textSize="@dimen/textTitle"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/sequence_time"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Sequence n°1" />
+            tools:text="Pellicule 1" />
 
         <TextView
-            android:id="@+id/sequence_appareil_name"
+            android:id="@+id/sequence_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAllCaps="true"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_marginTop="@dimen/margin8"
-            android:textSize="@dimen/textTitle"
+            android:textSize="@dimen/contentText"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/sequence_name"
+            android:layout_marginTop="@dimen/margin8"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="Appareil n°1" />
+            app:layout_constraintTop_toBottomOf="@id/sequence_name"
+            tools:text="Le 20/05/20 à 15:40" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

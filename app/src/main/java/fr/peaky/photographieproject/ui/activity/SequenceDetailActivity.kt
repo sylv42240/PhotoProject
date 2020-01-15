@@ -38,13 +38,34 @@ class SequenceDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sequence_detail)
         val sequence = intent.getSerializableExtra(SEQUENCE_EXTRA_KEY) as Sequence
         sequence_detail_name.text = sequence.name
+        sequence_detail_poses.text = sequence.poses.toString() + " poses"
         val view: View = findViewById(android.R.id.content)
         sequenceId = sequence.id
         adapter.listener = this::deletePhotoToFirestore
         getDatabaseInfos(view, sequence.id)
         researchFabMenuBar4.setOnClickListener {
             val intent = Intent(it.context, PhotoDetailActivity::class.java)
-            intent.putExtra(PHOTO_EXTRA_KEY, Photo(sequenceId = sequence.id, imagePath = DEFAULT_IMAGE_PATH, time = System.currentTimeMillis().toString(), numberPhoto = photoList.size + 1))
+            if (photoList.isNotEmpty()){
+                intent.putExtra(PHOTO_EXTRA_KEY,
+                    Photo(sequenceId = sequence.id,
+                        imagePath = DEFAULT_IMAGE_PATH,
+                        time = System.currentTimeMillis().toString(),
+                        numberPhoto = photoList.last().numberPhoto + 1,
+                        objectifId = photoList.last().objectifId,
+                        mode = photoList.last().mode,
+                        exposition = photoList.last().exposition,
+                        ouverture = photoList.last().ouverture,
+                        poses = sequence.poses))
+            }else{
+                intent.putExtra(PHOTO_EXTRA_KEY,
+                    Photo(sequenceId = sequence.id,
+                        imagePath = DEFAULT_IMAGE_PATH,
+                        time = System.currentTimeMillis().toString(),
+                        numberPhoto = 1,
+                        poses = sequence.poses
+                ))
+            }
+
             intent.putExtra(PHOTO_STATE_EXTRA_KEY, CREATION_MODE)
             it.context.startActivity(intent)
         }

@@ -26,4 +26,8 @@
     <string name="enregistrer_photo">Enregistrer ma photo</string>
     <string name="no_objectif">Aucun objectif</string>
     <string name="modifier">Modifier</string>
+    <string name="default_ouverture">F5.6</string>
+    <string name="default_exposition">1/125</string>
+    <string name="default_mode">Scène Portrait</string>
+    <string name="modifyAddLabel">Modifier</string>
 </resources>

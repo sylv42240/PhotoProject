@@ -12,5 +12,6 @@ data class Photo(
     val description: String = "",
     val time: String = "",
     val imagePath: String = "",
-    val numberPhoto: Int = 0 //  Numero pellicule
+    val numberPhoto: Int = 0, //  Numero pellicule
+    val poses: Int = 0
 ): Serializable

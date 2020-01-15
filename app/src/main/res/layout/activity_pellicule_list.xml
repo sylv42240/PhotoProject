@@ -8,6 +8,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/overall"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -36,7 +37,6 @@
                 android:text="@string/aucune_pellicule"
                 android:textColor="@color/empty_list"
                 android:textSize="18dp"
-                android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -57,6 +57,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/pellicule_recycler_view"
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
@@ -65,6 +66,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
@@ -72,28 +74,44 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true">
 
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/myBottomAppBar"
-            style="@style/Widget.MaterialComponents.BottomAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            app:backgroundTint="@color/colorPrimary"
-            app:fabAlignmentMode="center" />
-
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/researchFabMenuBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/newPelliculeLabel"
-            android:elevation="@dimen/elevationFab"
             android:backgroundTint="@color/colorAccent"
-            app:layout_anchor="@id/myBottomAppBar"
-            android:layout_marginBottom="@dimen/fabMarginBottom"
+            android:elevation="@dimen/elevationFab"
+            android:gravity="center_horizontal"
+            android:text="@string/newPelliculeLabel"
+            android:textAlignment="center"
             android:textColor="@color/textColor"
-            android:textStyle="bold"
-            android:textAlignment="center"/>
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/fabMarginBottom"
+            android:textStyle="bold" />
 
+        <io.alterac.blurkit.BlurLayout
+            android:id="@+id/blurLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:blk_downscaleFactor="0.2"
+            app:blk_blurRadius="12"
+            app:blk_fps="0">
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.bottomappbar.BottomAppBar
+                    android:id="@+id/myBottomAppBar"
+                    style="@style/Widget.MaterialComponents.BottomAppBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    app:backgroundTint="@color/colorPrimary"
+                    app:fabAlignmentMode="center" />
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        </io.alterac.blurkit.BlurLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </RelativeLayout>

@@ -4,6 +4,8 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
@@ -12,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import fr.peaky.photographieproject.R
+import fr.peaky.photographieproject.R.id
+import fr.peaky.photographieproject.R.layout
 import fr.peaky.photographieproject.data.PELLICULE_VALUE
 import fr.peaky.photographieproject.data.USER_PARAMETER
 import fr.peaky.photographieproject.data.exception.FirestoreException
@@ -24,6 +28,7 @@ import fr.peaky.photographieproject.ui.adapter.CustomPelliculeScrollListener
 import fr.peaky.photographieproject.ui.adapter.PelliculeAdapter
 import fr.peaky.photographieproject.ui.component.ErrorDisplayComponent
 import fr.peaky.photographieproject.ui.component.ErrorTranslator
+import io.alterac.blurkit.BlurKit
 import kotlinx.android.synthetic.main.activity_pellicule_list.*
 
 
@@ -39,7 +44,7 @@ class PelliculeListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pellicule_list)
+        setContentView(layout.activity_pellicule_list)
         alertDialog = Dialog(this)
         adapter.listener = this::deletePelliculeToFirestore
         val view: View = findViewById(android.R.id.content)
@@ -47,8 +52,8 @@ class PelliculeListActivity : AppCompatActivity() {
         researchFabMenuBar.setOnClickListener {
             showAddPelliculeDialog()
         }
+        BlurKit.init(this)
     }
-
 
     private fun getDatabaseInfos(view: View) {
         pelliculeList.clear()
@@ -102,10 +107,12 @@ class PelliculeListActivity : AppCompatActivity() {
             1 -> {
                 myBottomAppBar.performHide()
                 researchFabMenuBar.hide()
+                blurLayout.visibility = GONE
             }
             2 -> {
                 myBottomAppBar.performShow()
                 researchFabMenuBar.show()
+                blurLayout.visibility = VISIBLE
             }
         }
     }
@@ -114,11 +121,12 @@ class PelliculeListActivity : AppCompatActivity() {
     private fun showAddPelliculeDialog() {
         val viewGroup = findViewById<ViewGroup>(android.R.id.content)
         val dialogView =
-            LayoutInflater.from(this).inflate(R.layout.create_pellicule_dialog, viewGroup, false)
-        val buttonValidate = dialogView.findViewById<Button>(R.id.btn_validate)
-        val buttonCancel = dialogView.findViewById<Button>(R.id.btn_cancel)
-        val spinner = dialogView.findViewById<Spinner>(R.id.pellicule_iso_spinner)
-        val spinnerList = arrayOf(
+            LayoutInflater.from(this).inflate(layout.create_pellicule_dialog, viewGroup, false)
+        val buttonValidate = dialogView.findViewById<Button>(id.btn_validate)
+        val buttonCancel = dialogView.findViewById<Button>(id.btn_cancel)
+        val isoSpinner = dialogView.findViewById<Spinner>(id.pellicule_iso_spinner)
+        val posesSpinner = dialogView.findViewById<Spinner>(R.id.pellicule_poses_spinner)
+        val isoSpinnerList = arrayOf(
             "ISO 50",
             "ISO 100",
             "ISO 200",
@@ -127,13 +135,21 @@ class PelliculeListActivity : AppCompatActivity() {
             "ISO 1 600",
             "ISO 3 200"
         )
-        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, spinnerList)
+        val posesSpinnerList = arrayOf(
+            "12",
+            "24",
+            "36"
+        )
+        val isoArrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, isoSpinnerList)
+        val posesArrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, posesSpinnerList)
         val editText = dialogView.findViewById<EditText>(R.id.pellicule_name)
-        spinner.adapter = arrayAdapter
+        isoSpinner.adapter = isoArrayAdapter
+        posesSpinner.adapter = posesArrayAdapter
         buttonValidate.setOnClickListener {
             if (addPelliculeToFirestore(
                     editText.text.toString(),
-                    spinner.selectedItem.toString()
+                    isoSpinner.selectedItem.toString(),
+                    posesSpinner.selectedItem.toString().toInt()
                 )
             ) {
                 alertDialog.dismiss()
@@ -145,12 +161,13 @@ class PelliculeListActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
         alertDialog = builder.create()
+        alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         alertDialog.setCancelable(false)
         alertDialog.setCanceledOnTouchOutside(false)
         alertDialog.show()
     }
 
-    private fun addPelliculeToFirestore(name: String, iso: String): Boolean {
+    private fun addPelliculeToFirestore(name: String, iso: String, poses:Int): Boolean {
         if (name.length !in 5..40) {
             Toast.makeText(
                 this,
@@ -160,7 +177,8 @@ class PelliculeListActivity : AppCompatActivity() {
             return false
         }
 
-        val pellicule = HashMap<String, String>()
+        val pellicule = HashMap<String, Any>()
+        pellicule["poses"] = poses
         pellicule["name"] = name
         pellicule["iso"] = iso
         pellicule["userId"] = userId.toString()
@@ -170,7 +188,7 @@ class PelliculeListActivity : AppCompatActivity() {
             .add(pellicule)
             .addOnSuccessListener {
                 Toast.makeText(this, "Ajouté avec succès", Toast.LENGTH_LONG).show()
-                val pelliculeAdded = Pellicule(it.id, userId.toString(), name, iso)
+                val pelliculeAdded = Pellicule(it.id, userId.toString(), name, iso, poses)
                 if (noElement) {
                     pelliculeList.add(pelliculeAdded)
                     pelliculeList.sortBy {pellicule ->
