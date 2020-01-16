@@ -9,7 +9,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/background_photo_details"
+        android:padding="@dimen/margin20">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,38 +51,39 @@
             android:id="@+id/pellicule_detail_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/textTitle"
             android:layout_marginStart="@dimen/margin8"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/textTitle"
             android:textStyle="bold"
-            android:textColor="@color/colorPrimaryDark"
+            android:textAllCaps="true"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Pellicule 1"
-            android:gravity="center_horizontal" />
+            tools:text="Pellicule 1" />
 
         <TextView
             android:id="@+id/pellicule_detail_iso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/headerText"
             android:layout_marginStart="@dimen/margin8"
             android:layout_marginTop="@dimen/margin8"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/headerText"
             app:layout_constraintTop_toBottomOf="@id/pellicule_detail_name"
-            tools:text="ISO 800"
-            android:gravity="center_horizontal"/>
+            tools:text="ISO :" />
 
         <View
             android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
             android:layout_marginTop="@dimen/margin8"
             android:background="@color/colorPrimary"
-            app:layout_constraintTop_toBottomOf="@id/pellicule_detail_iso"
-            android:layout_width="match_parent"
-            android:layout_height="3dp"/>
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/pellicule_detail_iso" />
 
         <ProgressBar
             android:id="@+id/grp_list_progress_bar"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_marginTop="@dimen/margin16"
             android:indeterminateTint="@android:color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -92,11 +95,11 @@
             android:id="@+id/grp_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin20"
             android:clipToPadding="false"
             android:padding="@dimen/padding16"
-            android:layout_marginTop="@dimen/margin8"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view" />
+            app:layout_constraintTop_toBottomOf="@+id/pellicule_detail_iso" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -129,7 +132,6 @@
             android:textColor="@color/textColor"
             android:textStyle="bold"
             app:layout_anchor="@id/myBottomAppBar" />
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </RelativeLayout>
