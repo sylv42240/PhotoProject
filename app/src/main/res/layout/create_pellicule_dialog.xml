@@ -15,13 +15,13 @@
         android:padding="@dimen/padding16">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/createNewPellicule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:text="@string/add_pellicule_title"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,7 @@
             android:ems="10"
             android:hint="@string/pelliculeName"
             android:inputType="textEmailAddress"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/createNewPellicule" />
 
         <TextView
             android:id="@+id/textView4"
@@ -52,6 +52,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin8"
+            android:spinnerMode="dialog"
             app:layout_constraintBottom_toBottomOf="@+id/textView4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView4"
@@ -69,10 +70,11 @@
             app:layout_constraintTop_toBottomOf="@+id/pellicule_iso_spinner" />
 
         <Spinner
-            android:id="@+id/pellicule_poses_spinner"
+            android:id="@+id/pelliculePoseSpinner"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin8"
+            android:spinnerMode="dialog"
             app:layout_constraintBottom_toBottomOf="@+id/textView5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView5"
@@ -92,7 +94,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/btn_validate"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pellicule_poses_spinner" />
+            app:layout_constraintTop_toBottomOf="@+id/pelliculePoseSpinner" />
 
         <Button
             android:id="@+id/btn_validate"
@@ -105,7 +107,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_cancel"
-            app:layout_constraintTop_toBottomOf="@+id/pellicule_poses_spinner" />
+            app:layout_constraintTop_toBottomOf="@+id/pelliculePoseSpinner" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

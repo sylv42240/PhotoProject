@@ -1,5 +1,6 @@
 package fr.peaky.photographieproject.ui.activity
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -26,6 +27,7 @@ import fr.peaky.photographieproject.data.extension.show
 import fr.peaky.photographieproject.data.model.Pellicule
 import fr.peaky.photographieproject.ui.adapter.CustomPelliculeScrollListener
 import fr.peaky.photographieproject.ui.adapter.PelliculeAdapter
+import fr.peaky.photographieproject.ui.adapter.SpinnerAdapter
 import fr.peaky.photographieproject.ui.component.ErrorDisplayComponent
 import fr.peaky.photographieproject.ui.component.ErrorTranslator
 import io.alterac.blurkit.BlurKit
@@ -125,24 +127,29 @@ class PelliculeListActivity : AppCompatActivity() {
         val buttonValidate = dialogView.findViewById<Button>(id.btn_validate)
         val buttonCancel = dialogView.findViewById<Button>(id.btn_cancel)
         val isoSpinner = dialogView.findViewById<Spinner>(id.pellicule_iso_spinner)
-        val posesSpinner = dialogView.findViewById<Spinner>(R.id.pellicule_poses_spinner)
+        val posesSpinner = dialogView.findViewById<Spinner>(R.id.pelliculePoseSpinner)
         val isoSpinnerList = arrayOf(
-            "ISO 50",
-            "ISO 100",
-            "ISO 200",
-            "ISO 400",
-            "ISO 800",
-            "ISO 1 600",
-            "ISO 3 200"
+            "50",
+            "100",
+            "200",
+            "400",
+            "800",
+            "1 600",
+            "3 200"
         )
         val posesSpinnerList = arrayOf(
             "12",
             "24",
             "36"
         )
-        val isoArrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, isoSpinnerList)
-        val posesArrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, posesSpinnerList)
+
+        val isoArrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, isoSpinnerList)
+        val posesArrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, posesSpinnerList)
+
         val editText = dialogView.findViewById<EditText>(R.id.pellicule_name)
+        isoArrayAdapter.setDropDownViewResource(R.layout.spinner_adapter_layout)
+        posesArrayAdapter.setDropDownViewResource(R.layout.spinner_adapter_layout)
+
         isoSpinner.adapter = isoArrayAdapter
         posesSpinner.adapter = posesArrayAdapter
         buttonValidate.setOnClickListener {
@@ -167,6 +174,7 @@ class PelliculeListActivity : AppCompatActivity() {
         alertDialog.show()
     }
 
+    @SuppressLint("DefaultLocale")
     private fun addPelliculeToFirestore(name: String, iso: String, poses:Int): Boolean {
         if (name.length !in 5..40) {
             Toast.makeText(
