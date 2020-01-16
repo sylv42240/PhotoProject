@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_dialog_pellicule"
+        android:orientation="vertical"
+        android:padding="@dimen/padding16">
+
+        <TextView
+            android:id="@+id/update_photo_dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Modifier Exposition" />
+
+
+        <TextView
+            android:id="@+id/update_photo_dialog_attribute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin16"
+            android:textSize="@dimen/textTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/update_photo_dialog_title"
+            tools:text="Exposition : " />
+
+        <Spinner
+            android:id="@+id/update_photo_dialog_spinner"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="@dimen/margin16"
+            android:spinnerMode="dialog"
+            app:layout_constraintBottom_toBottomOf="@+id/update_photo_dialog_attribute"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/update_photo_dialog_attribute"
+            app:layout_constraintTop_toBottomOf="@+id/update_photo_dialog_title" />
+
+
+        <Button
+            android:id="@+id/update_photo_dialog_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin8"
+            android:layout_marginEnd="@dimen/margin8"
+            android:backgroundTint="@color/cancelButtonColor"
+            android:text="@string/annuler"
+            android:textColor="@color/textColor"
+            app:layout_constraintEnd_toStartOf="@id/update_photo_dialog_validate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/update_photo_dialog_spinner" />
+
+        <Button
+            android:id="@+id/update_photo_dialog_validate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin8"
+            android:backgroundTint="@color/colorAccent"
+            android:text="@string/modifier"
+            android:textColor="@color/textColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/update_photo_dialog_cancel"
+            app:layout_constraintTop_toBottomOf="@+id/update_photo_dialog_spinner" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

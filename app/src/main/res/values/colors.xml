@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#FFD096</color>
+    <color name="colorPrimaryDark">#B38A57</color>
+    <color name="colorAccent">#5795B3</color>
+    <color name="colorAccentBis">#D6FCFF</color>
+    <color name="snack_bar_color">#EB7416</color>
+    <color name="color_background">#E4E9EF</color>
+    <color name="colorAccentDark">#1E4E66</color>
+    <color name="errorColor">#B00020</color>
+    <color name="textColor">#FFFFFF</color>
+    <color name="empty_list">#52000000</color>
+    <color name="poses_warning_green">#4CAF50</color>
+    <color name="poses_warning_orange">#FF9800</color>
+    <color name="poses_warning_red">#F44336</color>
+    <color name="cancelButtonColor">#AAAAAA</color>
+    <color name="photoDeviceButtonColor">#C0C0C0</color>
+    <color name="dialogBackground">#AAAAAAAA</color>
 </resources>

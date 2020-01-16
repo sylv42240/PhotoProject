@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="headerText">18sp</dimen>
+    <dimen name="textTitle">20sp</dimen>
+    <dimen name="contentText">14sp</dimen>
+    <dimen name="padding8">8dp</dimen>
+    <dimen name="padding16">16dp</dimen>
+    <dimen name="padding20">20dp</dimen>
+    <dimen name="margin8">8dp</dimen>
+    <dimen name="margin16">16dp</dimen>
+    <dimen name="margin20">20dp</dimen>
+    <dimen name="marginTopMinElement">16dp</dimen>
+    <dimen name="marginBottomMinElement">16dp</dimen>
+    <dimen name="elevationCardView">6dp</dimen>
+    <dimen name="radiusCornerCardview">12dp</dimen>
+    <dimen name="elevationFab">4dp</dimen>
+    <dimen name="fabMarginBottom">35dp</dimen>
+</resources>
