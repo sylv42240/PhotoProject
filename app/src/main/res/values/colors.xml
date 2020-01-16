@@ -15,6 +15,7 @@
     <color name="poses_warning_red">#F44336</color>
     <color name="cancelButtonColor">#AAAAAA</color>
     <color name="photoDeviceButtonColor">#C0C0C0</color>
+    <color name="dialogBackground">#AAAAAAAA</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#FFFFFF</color>
 
 

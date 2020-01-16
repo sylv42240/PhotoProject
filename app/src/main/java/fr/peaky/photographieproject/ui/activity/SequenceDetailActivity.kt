@@ -38,7 +38,7 @@ class SequenceDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sequence_detail)
         val sequence = intent.getSerializableExtra(SEQUENCE_EXTRA_KEY) as Sequence
         sequence_detail_name.text = sequence.name
-        sequence_detail_poses.text = sequence.poses.toString() + " poses"
+        sequence_detail_poses.text = "${sequence.poses} poses"
         val view: View = findViewById(android.R.id.content)
         sequenceId = sequence.id
         adapter.listener = this::deletePhotoToFirestore

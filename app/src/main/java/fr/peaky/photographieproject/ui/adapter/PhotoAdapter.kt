@@ -43,7 +43,6 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoViewHolder>() {
         this.photos = photos
         notifyDataSetChanged()
     }
-
 }
 
 class PhotoViewHolder(view: View, listener: (Photo) -> Unit) : RecyclerView.ViewHolder(view) {
