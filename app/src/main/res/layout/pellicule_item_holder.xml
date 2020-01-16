@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="130dp"
-    android:layout_marginBottom="@dimen/margin8"
+    android:layout_marginBottom="@dimen/margin16"
     android:maxHeight="200dp"
     card_view:cardCornerRadius="16dp"
     card_view:cardElevation="@dimen/elevationCardView"
@@ -18,11 +18,21 @@
         android:background="@drawable/background_pellicule_holder"
         android:orientation="horizontal">
 
-
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.2">
+
+            <TextView
+                android:id="@+id/posesNumberPellicule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textAllCaps="true"
+                android:textColor="@color/textColor"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:text="36"/>
 
         </RelativeLayout>
 
@@ -38,7 +48,8 @@
                 android:id="@+id/pellicule_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin8"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="@dimen/margin20"
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimaryDark"
@@ -51,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/pellicule_name"
-                android:layout_marginTop="@dimen/margin8"
+                android:layout_marginTop="@dimen/margin16"
                 android:layout_marginBottom="5dp"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center_vertical"
