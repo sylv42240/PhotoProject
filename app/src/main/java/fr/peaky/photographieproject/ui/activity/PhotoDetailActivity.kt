@@ -39,7 +39,6 @@ import fr.peaky.photographieproject.ui.component.ErrorDisplayComponent
 import fr.peaky.photographieproject.ui.component.ErrorTranslator
 import kotlinx.android.synthetic.main.activity_pellicule_detail.*
 import kotlinx.android.synthetic.main.activity_photo_detail.*
-import kotlinx.android.synthetic.main.activity_photo_detail.view.*
 import java.io.File
 
 
@@ -65,7 +64,7 @@ class PhotoDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photo_detail)
-        editTextLayout = findViewById(R.id.input_layout_photo_desc)
+        editTextLayout = findViewById(R.id.editDescriptionPhoto)
         val photoIntent = intent.getSerializableExtra(PHOTO_EXTRA_KEY) as Photo
         this.photo = photoIntent
         photoImagePath = photo.imagePath

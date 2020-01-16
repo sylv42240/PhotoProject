@@ -8,10 +8,35 @@
     android:orientation="vertical">
 
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editDescriptionPhoto"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/margin16"
+        android:hint="Description"
+        android:textColorHint="@color/textColor"
+        app:boxStrokeColor="@color/textColor"
+        app:hintEnabled="true"
+        app:hintTextColor="@color/textColor"
+        app:placeholderText="Entrer votre description"
+        app:placeholderTextColor="@color/textColor">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/photo_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColor"
+            android:textColorHint="@color/textColor" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="90dp">
+        android:layout_below="@+id/editDescriptionPhoto">
 
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
@@ -40,8 +65,7 @@
                     android:textAlignment="center"
                     android:textSize="18dp"
                     android:textStyle="italic"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/photo_exposition"
@@ -50,9 +74,9 @@
                     android:gravity="center"
                     android:textSize="33dp"
                     android:textStyle="bold"
-                    tools:text="1/1000"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/header_exposition"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    tools:text="1/1000" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -84,7 +108,7 @@
                     android:textAlignment="center"
                     android:textSize="18dp"
                     android:textStyle="italic"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/photo_numero"
@@ -93,9 +117,9 @@
                     android:gravity="center"
                     android:textSize="40dp"
                     android:textStyle="bold"
-                    tools:text="65"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/header_numero"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    tools:text="65" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
@@ -136,9 +160,9 @@
                     android:gravity="center"
                     android:textSize="35dp"
                     android:textStyle="bold"
-                    tools:text="F32"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/header_ouverture"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    tools:text="F32" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
@@ -170,7 +194,7 @@
                     android:textAlignment="center"
                     android:textSize="18dp"
                     android:textStyle="italic"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/photo_mode"
@@ -179,9 +203,9 @@
                     android:gravity="center"
                     android:textSize="28dp"
                     android:textStyle="bold"
-                    tools:text="Portrait"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/header_mode"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    tools:text="Portrait" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
@@ -243,7 +267,7 @@
                     android:textAlignment="center"
                     android:textSize="18dp"
                     android:textStyle="italic"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/photo_objectif"
@@ -252,48 +276,19 @@
                     android:gravity="center"
                     android:textSize="22dp"
                     android:textStyle="bold"
-                    tools:text="Objectif 1"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/header_objectif"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    tools:text="Objectif 1" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
-
-        <!--<EditText
-        android:id="@+id/photo_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginTop="32dp"
-        android:hint="Entrez votre description ici"
-        android:maxLines="4"
-        app:layout_constraintTop_toBottomOf="@+id/cardview_image_layout" />
-        -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_photo_desc"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:placeholderText="Description"
-            android:layout_margin="@dimen/margin8"
-            app:layout_constraintTop_toBottomOf="@+id/cardview_image_layout"
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/photo_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Description"
-                app:hintEnabled="true"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
-
+      
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/first_vertical_line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="206dp" />
+            app:layout_constraintGuide_end="205dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/first_horizontal_line"
@@ -328,9 +323,8 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/input_layout_photo_desc"
+            app:layout_constraintTop_toBottomOf="@id/cardview_image_layout"
             tools:visibility="visible" />
-        <!-- app:layout_constraintTop_toBottomOf="@id/photo_description" -->
 
         <TextView
             android:id="@+id/photo_detail_progress_bar_text"
@@ -371,8 +365,8 @@
             android:layout_marginBottom="@dimen/fabMarginBottom"
             android:backgroundTint="@color/photoDeviceButtonColor"
             android:elevation="@dimen/elevationFab"
-            app:layout_anchor="@id/myBottomAppBar5"
-            app:borderWidth="0dp"/>
+            app:borderWidth="0dp"
+            app:layout_anchor="@id/myBottomAppBar5" />
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
