@@ -11,7 +11,11 @@ import fr.peaky.photographieproject.ui.activity.PelliculeListActivity
 import fr.peaky.photographieproject.ui.component.inflate
 import kotlinx.android.synthetic.main.pellicule_item_holder.view.*
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.view.animation.OvershootInterpolator
+import fr.peaky.photographieproject.data.extension.convertTimeToDate
+import kotlinx.android.synthetic.main.pellicule_item_holder.view.photo_time_item
+import kotlinx.android.synthetic.main.photo_item_holder.view.*
 
 const val PELLICULE_EXTRA_KEY = "pellicule_extra_key"
 
@@ -35,12 +39,12 @@ class PelliculeAdapter : RecyclerView.Adapter<PelliculeViewHolder>() {
 
 
         val fadeAnimator = ObjectAnimator.ofFloat(view, "alpha", 0f, 1f)
-        fadeAnimator.duration = 900
+        fadeAnimator.duration = 800
         fadeAnimator.startDelay = startOffset.toLong()
         fadeAnimator.start()
 
         val translateAnimator = ObjectAnimator.ofFloat(view, "translationX", 0f)
-        translateAnimator.duration = 800
+        translateAnimator.duration = 700
         translateAnimator.startDelay = startOffset.toLong()
         translateAnimator.interpolator = OvershootInterpolator()
         translateAnimator.start()
@@ -51,16 +55,21 @@ class PelliculeAdapter : RecyclerView.Adapter<PelliculeViewHolder>() {
         scaleXAnimator.start()
 
         val scaleYAnimator = ObjectAnimator.ofFloat(view, "scaleY", 2f, 0.8f, 1.0f)
-        scaleYAnimator.duration = 700
+        scaleYAnimator.duration = 800
         scaleYAnimator.startDelay = startOffset.toLong()
         scaleYAnimator.start()
 
+        startOffset += 200
 
     }
 
 
     override fun onViewAttachedToWindow(holder: PelliculeViewHolder) {
         animateRecyclerView(holder.itemView)
+    }
+
+    override fun onViewDetachedFromWindow(holder: PelliculeViewHolder) {
+        startOffset = 0
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PelliculeViewHolder {
@@ -95,7 +104,9 @@ class PelliculeViewHolder(view: View, listener: (Pellicule) -> Unit) : RecyclerV
     fun bindPellicule(pellicule: Pellicule) {
         this.pellicule = pellicule
         rootView.pellicule_name.text = pellicule.name
-        rootView.iso_label.text = pellicule.iso
+        val isoLabel: String = "ISO : " + pellicule.iso
+        rootView.iso_label.text = isoLabel
+        rootView.posesNumberPellicule.text = pellicule.poses.toString()
     }
 
     companion object {
