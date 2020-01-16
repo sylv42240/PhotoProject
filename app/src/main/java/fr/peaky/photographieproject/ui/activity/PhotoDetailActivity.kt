@@ -248,6 +248,7 @@ class PhotoDetailActivity : AppCompatActivity() {
         val spinner = dialogView.findViewById<Spinner>(R.id.add_photo_dialog_spinner)
         val spinnerList = objectifNameList
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, spinnerList)
+        arrayAdapter.setDropDownViewResource(R.layout.spinner_adapter_layout)
         val editTextObjectif = dialogView.findViewById<EditText>(R.id.add_photo_dialog_edit)
         spinner.adapter = arrayAdapter
         if (photo_objectif.text.toString() != NO_OBJECTIF) {
@@ -445,6 +446,7 @@ class PhotoDetailActivity : AppCompatActivity() {
             "4"
         )
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, spinnerList)
+        arrayAdapter.setDropDownViewResource(R.layout.spinner_adapter_layout)
         spinner.adapter = arrayAdapter
         spinner.setSelection(arrayAdapter.getPosition(photo_exposition.text.toString()))
         buttonValidate.setOnClickListener {
@@ -486,6 +488,7 @@ class PhotoDetailActivity : AppCompatActivity() {
             "Programme"
         )
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, spinnerList)
+        arrayAdapter.setDropDownViewResource(R.layout.spinner_adapter_layout)
         spinner.adapter = arrayAdapter
         spinner.setSelection(arrayAdapter.getPosition(photo_mode.text.toString()))
         buttonValidate.setOnClickListener {
@@ -554,6 +557,7 @@ class PhotoDetailActivity : AppCompatActivity() {
             "F1.2"
         )
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, spinnerList)
+        arrayAdapter.setDropDownViewResource(R.layout.spinner_adapter_layout)
         spinner.adapter = arrayAdapter
         spinner.setSelection(arrayAdapter.getPosition(photo_ouverture.text.toString()))
         buttonValidate.setOnClickListener {

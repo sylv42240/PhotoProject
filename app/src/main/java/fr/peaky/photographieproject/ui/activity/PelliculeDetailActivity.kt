@@ -164,6 +164,7 @@ class PelliculeDetailActivity : AppCompatActivity() {
         val spinner = dialogView.findViewById<Spinner>(R.id.appareil_spinner)
         val spinnerList = appareilNameList
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, spinnerList)
+        arrayAdapter.setDropDownViewResource(R.layout.spinner_adapter_layout)
         val editTextAppareil = dialogView.findViewById<EditText>(R.id.appareil_name)
         spinner.adapter = arrayAdapter
         buttonValidate.setOnClickListener {
