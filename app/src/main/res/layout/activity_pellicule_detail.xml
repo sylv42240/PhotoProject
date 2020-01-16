@@ -127,7 +127,7 @@
             android:layout_marginBottom="@dimen/fabMarginBottom"
             android:backgroundTint="@color/colorAccent"
             android:elevation="@dimen/elevationFab"
-            android:text="@string/nouveau_groupe"
+            android:text="@string/ajouter_une_pellicule"
             android:textAlignment="center"
             android:textColor="@color/textColor"
             android:textStyle="bold"

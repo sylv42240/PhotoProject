@@ -7,7 +7,7 @@
     <string name="iso">ISO :</string>
     <string name="labelCountGroupSequence">Nombre de groupe de séquences :</string>
     <string name="pelliculeName">Nom de la pellicule</string>
-    <string name="newPelliculeLabel">Créer une nouvelle Pellicule</string>
+    <string name="newPelliculeLabel">Créer un type de pellicule</string>
     <string name="nameGroupeSequence">Nom du Groupe de Séquences</string>
     <string name="aucune_pellicule">Aucune pellicule trouvée</string>
     <string name="aucun_grp_sequence">Aucun groupe séquence trouvé</string>
@@ -30,4 +30,5 @@
     <string name="default_exposition">1/125</string>
     <string name="default_mode">Scène Portrait</string>
     <string name="modifyAddLabel">Modifier</string>
+    <string name="ajouter_une_pellicule">Ajouter une pellicule</string>
 </resources>
