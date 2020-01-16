@@ -54,7 +54,8 @@
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryDark"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Pellicule 1" />
+            tools:text="Pellicule 1"
+            android:gravity="center_horizontal" />
 
         <TextView
             android:id="@+id/pellicule_detail_iso"
@@ -65,7 +66,8 @@
             android:layout_marginTop="@dimen/margin8"
             android:textColor="@color/colorPrimaryDark"
             app:layout_constraintTop_toBottomOf="@id/pellicule_detail_name"
-            tools:text="ISO 800" />
+            tools:text="ISO 800"
+            android:gravity="center_horizontal"/>
 
         <View
             android:id="@+id/view"

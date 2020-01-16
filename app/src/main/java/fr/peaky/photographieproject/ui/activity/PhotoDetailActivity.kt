@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -38,6 +39,7 @@ import fr.peaky.photographieproject.ui.component.ErrorDisplayComponent
 import fr.peaky.photographieproject.ui.component.ErrorTranslator
 import kotlinx.android.synthetic.main.activity_pellicule_detail.*
 import kotlinx.android.synthetic.main.activity_photo_detail.*
+import kotlinx.android.synthetic.main.activity_photo_detail.view.*
 import java.io.File
 
 
@@ -58,10 +60,12 @@ class PhotoDetailActivity : AppCompatActivity() {
     private lateinit var mStorageRef: StorageReference
     private var file: File = File("", "")
     private var fileUri: Uri = Uri.fromFile(file)
+    private lateinit var editTextLayout: TextInputLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photo_detail)
+        editTextLayout = findViewById(R.id.input_layout_photo_desc)
         val photoIntent = intent.getSerializableExtra(PHOTO_EXTRA_KEY) as Photo
         this.photo = photoIntent
         photoImagePath = photo.imagePath
@@ -179,7 +183,8 @@ class PhotoDetailActivity : AppCompatActivity() {
 
     private fun addPhotoToFirestore(photo: Photo) {
         val photoToAdd = HashMap<String, Any>()
-        photoToAdd["description"] = photo_description.text.toString()
+        //photoToAdd["description"] = photo_description.text.toString()
+        photoToAdd["description"] = editTextLayout.editText!!.text.toString()
         photoToAdd["exposition"] = photo_exposition.text.toString()
         photoToAdd["imagePath"] = photoImagePath
         photoToAdd["mode"] = photo_mode.text.toString()
@@ -346,7 +351,7 @@ class PhotoDetailActivity : AppCompatActivity() {
                                     photo.poses
                                 )
                             )
-                            photo_description.setText(photo.description)
+                            editTextLayout.editText!!.setText(photo.description)
                             Glide.with(this).load(photo.imagePath)
                                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                                 .into(photo_image)
@@ -372,7 +377,7 @@ class PhotoDetailActivity : AppCompatActivity() {
             photo_ouverture.text = photo.ouverture
             photo_numero.text = photo.numberPhoto.toString()
             photo_numero.setTextColor(setNumberColor(photo.numberPhoto, photo.poses))
-            photo_description.setText(photo.description)
+            editTextLayout.editText!!.setText(photo.description)
             Glide.with(this).load(photo.imagePath)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(photo_image)
@@ -388,7 +393,7 @@ class PhotoDetailActivity : AppCompatActivity() {
     private fun updatePhotoFromDatabase(photo: Photo, view: View) {
 
         val photoUpdated = HashMap<String, Any>()
-        photoUpdated["description"] = photo_description.text.toString()
+        photoUpdated["description"] = editTextLayout.editText!!.text.toString()
         photoUpdated["exposition"] = photo_exposition.text.toString()
         photoUpdated["imagePath"] = photoImagePath
         photoUpdated["mode"] = photo_mode.text.toString()

@@ -14,4 +14,5 @@
     <color name="poses_warning_orange">#FF9800</color>
     <color name="poses_warning_red">#F44336</color>
     <color name="cancelButtonColor">#AAAAAA</color>
+    <color name="photoDeviceButtonColor">#C0C0C0</color>
 </resources>
