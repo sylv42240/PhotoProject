@@ -231,6 +231,7 @@
 
                 <ImageView
                     android:id="@+id/photo_image"
+                    android:scaleType="centerCrop"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     tools:src="@drawable/no_image" />
@@ -281,19 +282,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
-
-        <!--<EditText
-        android:id="@+id/photo_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginTop="32dp"
-        android:hint="Entrez votre description ici"
-        android:maxLines="4"
-        app:layout_constraintTop_toBottomOf="@+id/cardview_image_layout" />
-        -->
-
-
+      
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/first_vertical_line"
             android:layout_width="wrap_content"
@@ -336,7 +325,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardview_image_layout"
             tools:visibility="visible" />
-        <!-- app:layout_constraintTop_toBottomOf="@id/photo_description" -->
 
         <TextView
             android:id="@+id/photo_detail_progress_bar_text"

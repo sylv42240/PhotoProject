@@ -14,13 +14,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.activity.PhotoDetailActivity"></activity>
-        <activity android:name=".ui.activity.SequenceDetailActivity" />
-        <activity android:name=".ui.activity.SequenceListActivity" />
-        <activity android:name=".ui.activity.PelliculeDetailActivity" />
-        <activity android:name=".ui.activity.PelliculeListActivity" />
+        <activity
+            android:name=".ui.activity.PhotoDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.SequenceDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.PelliculeDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.PelliculeListActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.LoginActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
