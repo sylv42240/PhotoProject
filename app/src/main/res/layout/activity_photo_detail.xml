@@ -207,6 +207,7 @@
 
                 <ImageView
                     android:id="@+id/photo_image"
+                    android:scaleType="centerCrop"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     tools:src="@drawable/no_image" />
@@ -274,7 +275,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:placeholderText="Description"
-
+            android:layout_margin="@dimen/margin8"
             app:layout_constraintTop_toBottomOf="@+id/cardview_image_layout"
             >
 
