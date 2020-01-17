@@ -67,6 +67,7 @@
             android:backgroundTint="@color/cancelButtonColor"
             android:text="@string/annuler"
             android:textColor="@color/textColor"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/btn_validate"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appareil_spinner" />
@@ -79,6 +80,7 @@
             android:backgroundTint="@color/colorAccent"
             android:text="@string/creer"
             android:textColor="@color/textColor"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_cancel"
             app:layout_constraintTop_toBottomOf="@+id/appareil_spinner" />

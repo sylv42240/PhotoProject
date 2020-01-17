@@ -14,7 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_margin="@dimen/margin16"
+        android:layout_marginStart="@dimen/margin16"
+        android:layout_marginEnd="@dimen/margin16"
+        android:layout_marginTop="@dimen/margin24"
         android:hint="Description"
         android:textColorHint="@color/textColor"
         app:boxStrokeColor="@color/textColor"
@@ -36,7 +38,8 @@
         android:id="@+id/constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/editDescriptionPhoto">
+        android:layout_below="@+id/editDescriptionPhoto"
+        android:padding="@dimen/padding16">
 
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
@@ -54,7 +57,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-
 
                 <TextView
                     android:id="@+id/header_exposition"
@@ -231,9 +233,9 @@
 
                 <ImageView
                     android:id="@+id/photo_image"
-                    android:scaleType="centerCrop"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
                     tools:src="@drawable/no_image" />
 
             </LinearLayout>
@@ -282,34 +284,34 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
-      
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/first_vertical_line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_end="205dp" />
+            app:layout_constraintGuide_percent="0.5" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/first_horizontal_line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.22" />
+            app:layout_constraintGuide_percent="0.25" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/second_horizontal_line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.44" />
+            app:layout_constraintGuide_percent="0.5" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/third_horizontal_line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.66" />
+            app:layout_constraintGuide_percent="0.75" />
 
         <ProgressBar
             android:id="@+id/photo_detail_progress_bar"
@@ -355,7 +357,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            app:backgroundTint="@android:color/transparent"
+            app:backgroundTint="@color/colorPrimary"
             app:fabAlignmentMode="center" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -363,9 +365,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/fabMarginBottom"
-            android:backgroundTint="@color/photoDeviceButtonColor"
+            android:backgroundTint="@color/colorAccent"
             android:elevation="@dimen/elevationFab"
+            android:src="@drawable/camera"
             app:borderWidth="0dp"
+            app:tint="@color/textColor"
             app:layout_anchor="@id/myBottomAppBar5" />
 
 

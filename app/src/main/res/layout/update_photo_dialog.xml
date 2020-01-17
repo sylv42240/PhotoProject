@@ -60,6 +60,7 @@
             android:backgroundTint="@color/cancelButtonColor"
             android:text="@string/annuler"
             android:textColor="@color/textColor"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/update_photo_dialog_validate"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/update_photo_dialog_spinner" />
@@ -72,6 +73,7 @@
             android:backgroundTint="@color/colorAccent"
             android:text="@string/modifier"
             android:textColor="@color/textColor"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/update_photo_dialog_cancel"
             app:layout_constraintTop_toBottomOf="@+id/update_photo_dialog_spinner" />

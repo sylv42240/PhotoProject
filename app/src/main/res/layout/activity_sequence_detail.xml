@@ -9,7 +9,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/background_photo_details"
+        android:padding="@dimen/padding20">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,7 +54,7 @@
             android:layout_marginStart="@dimen/margin8"
             android:layout_marginTop="@dimen/margin8"
             android:textAllCaps="true"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/textColor"
             android:textSize="@dimen/textTitle"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -63,14 +65,14 @@
             android:id="@+id/sequence_detail_poses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin8"
             android:layout_marginTop="@dimen/margin8"
-            android:layout_marginEnd="@dimen/margin8"
             android:textAllCaps="true"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/textColor"
             android:textSize="@dimen/textTitle"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sequence_detail_name"
             tools:text="36 poses" />
 
         <View
@@ -79,6 +81,7 @@
             android:layout_height="3dp"
             android:layout_marginTop="@dimen/margin8"
             android:background="@color/colorPrimary"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/sequence_detail_name" />
 
         <ProgressBar
@@ -98,11 +101,12 @@
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin8"
             android:layout_marginEnd="@dimen/margin8"
-            android:paddingEnd="@dimen/padding16"
             android:clipToPadding="false"
+            android:paddingEnd="@dimen/padding16"
+            android:paddingStart="@dimen/padding16"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view3"
+            app:layout_constraintTop_toBottomOf="@+id/sequence_detail_poses"
             app:spanCount="2" />
 
 

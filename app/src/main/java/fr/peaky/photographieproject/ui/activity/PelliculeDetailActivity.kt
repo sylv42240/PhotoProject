@@ -52,7 +52,7 @@ class PelliculeDetailActivity : AppCompatActivity() {
         pelliculeCreated = pellicule
         pelliculeId = pellicule.id
         pellicule_detail_name.text = pellicule.name
-        pellicule_detail_iso.text = pellicule.iso
+        pellicule_detail_iso.text = "ISO : ${pellicule.iso}"
         alertDialog = Dialog(this)
         adapter.listener = this::deleteSequenceToFirestore
         val view: View = findViewById(android.R.id.content)
