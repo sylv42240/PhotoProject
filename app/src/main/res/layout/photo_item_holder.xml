@@ -5,8 +5,8 @@
     android:id="@+id/cardview1"
     android:layout_width="140dp"
     android:layout_height="165dp"
-    card_view:cardCornerRadius="12dp"
     android:layout_margin="@dimen/margin16"
+    card_view:cardCornerRadius="12dp"
     card_view:cardElevation="6dp"
     card_view:cardMaxElevation="6dp"
     tools:ignore="SpUsage">
